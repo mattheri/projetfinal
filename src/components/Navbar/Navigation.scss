@@ -1,0 +1,18 @@
+.navbar.mx-lg-5 {
+  margin-left: 10rem !important;
+  margin-right: 10rem !important;
+}
+
+.nav-link {
+  &:nth-child(n + 2) {
+    margin-left: 0.5rem;
+  }
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #fff;
+  &.btn-light {
+    color: rgba(0, 0, 0, 0.5);
+    align-self: flex-end;
+  }
+}
