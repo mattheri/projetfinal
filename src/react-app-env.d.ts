@@ -11,6 +11,7 @@ export interface User {
   formations: string[];
   cv: string;
   message: string;
+  role: string;
 }
 
 export interface Enterprise {
