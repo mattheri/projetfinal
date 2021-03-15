@@ -2,19 +2,31 @@
 import { ColProps } from "react-bootstrap";
 
 export interface User {
+  _id: string;
+  courriel: string;
+  role: string;
+  hash: string;
+  actif: boolean;
+  verifie: boolean;
+  premiereConnexion: boolean;
+  entiteId: string;
+  type: "etudiant" | "entreprise";
+}
+
+export interface Student {
+  _id: string;
   nom: string;
   prenom: string;
-  courriel: string;
   telephone: string;
   ville: string;
   competences: string[];
   formations: string[];
   cv: string;
-  message: string;
-  role: string;
+  verifie: boolean;
 }
 
 export interface Enterprise {
+  _id: string;
   nom: string;
   nomPersonneContact: string;
   prenomPersonneContact: string;
@@ -22,7 +34,7 @@ export interface Enterprise {
   telephone: string;
   adresse: string;
   ville: string;
-  stieWeb: string;
+  siteWeb: string;
   logo: string;
   descriptions: string;
   secteurActivites: string[];
@@ -30,14 +42,21 @@ export interface Enterprise {
 }
 
 export interface Region {
+  _id: string;
   nom: string;
+  actif: boolean;
+  verifie: boolean;
 }
 
 export interface SecteurActivite {
+  _id: string;
   nom: string;
+  actif: boolean;
+  verifie: boolean;
 }
 
 export interface DemandeStage {
+  _id: string;
   titre: string;
   programmeSuivi: string;
   autresFormations: string[];
@@ -56,6 +75,7 @@ export interface DemandeStage {
 }
 
 export interface OffreStage {
+  _id: string;
   titre: string;
   entreprise: string;
   secteurActivite: string[];
@@ -71,6 +91,16 @@ export interface OffreStage {
   dateParution: Date;
   informationsSupplementaires: string;
   vedette: boolean;
+}
+
+export interface Message {
+  _id: string;
+  input: string;
+  output: string;
+  message: string;
+  date: Date;
+  active: boolean;
+  readInput: boolean;
 }
 
 export type IForm =

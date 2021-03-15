@@ -1,4 +1,15 @@
+@use '../../../scss/variables.scss' as var;
+
 .sqr-btn {
-  background-color: blue;
+  background-color: var.$mauve;
   border-radius: 0;
+  border-color: var.$mauve;
+  &:hover {
+    background-color: var.$mauve80;
+    border-color: var.$mauve80;
+  }
+  &:focus {
+    background-color: var.$mauve;
+    border-color: var.$mauve;
+  }
 }

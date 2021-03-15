@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Navbar from "react-bootstrap/Navbar";
 import { LinksCol } from "../ui/linkscol/LinksCol";
 import Nav from "react-bootstrap/Nav";
-import { RouterLink } from "../ui/routerlink/RouterLink";
+import { RouterLink } from "../ui/Common/routerlink/RouterLink";
 import "./Footer.scss";
 
 export const Footer = () => {
@@ -21,28 +21,53 @@ export const Footer = () => {
           <LinksCol />
         </Container>
       </Container>
-      <Navbar className="footer-navbar bg-white py-3">
-        <Nav className="mr-auto align-items-center">
+      <Navbar className="footer-navbar bg-white py-3 flex-column flex-md-row">
+        <Nav className="mr-auto align-items-center w-100">
           ©️ {new Date(Date.now()).getFullYear()}{" "}
           <Nav.Item className="px-0" to="/" variant="link" as={RouterLink}>
             EnStage
           </Nav.Item>{" "}
           - Projet éducationnel
         </Nav>
-        <Nav>
-          <Nav.Item to="/" variant="link" as={RouterLink}>
+        <Nav className="flex-column flex-md-row w-100 justify-content-md-end">
+          <Nav.Item
+            className="align-self-start px-0 px-md-3 align-self-md-end"
+            to="/"
+            variant="link"
+            as={RouterLink}
+          >
             Accueil
           </Nav.Item>
-          <Nav.Item to="/about" variant="link" as={RouterLink}>
+          <Nav.Item
+            className="align-self-start px-0 px-md-3 align-self-md-end"
+            to="/about"
+            variant="link"
+            as={RouterLink}
+          >
             À propos
           </Nav.Item>
-          <Nav.Item to="/confidentiality" variant="link" as={RouterLink}>
+          <Nav.Item
+            className="align-self-start px-0 px-md-3 align-self-md-end"
+            to="/confidentiality"
+            variant="link"
+            as={RouterLink}
+          >
             Confidentialité
           </Nav.Item>
-          <Nav.Item to="/contact-us" variant="link" as={RouterLink}>
+          <Nav.Item
+            className="align-self-start px-0 px-md-3 align-self-md-end"
+            to="/contact-us"
+            variant="link"
+            as={RouterLink}
+          >
             Nous joindre
           </Nav.Item>
-          <Nav.Item to="/partners" variant="link" as={RouterLink}>
+          <Nav.Item
+            className="align-self-start px-0 px-md-3 align-self-md-end"
+            to="/partners"
+            variant="link"
+            as={RouterLink}
+          >
             Partenaires
           </Nav.Item>
         </Nav>

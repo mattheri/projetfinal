@@ -1,0 +1,25 @@
+@use './variables' as var;
+
+@mixin mqSm {
+  @media only screen and (min-width: var.$sm) {
+    @content;
+  }
+}
+
+@mixin mqMd {
+  @media only screen and (min-width: var.$md) {
+    @content;
+  }
+}
+
+@mixin mqLg {
+  @media only screen and (min-width: var.$lg) {
+    @content;
+  }
+}
+
+@mixin mqXl {
+  @media only screen and (min-width: var.$xl) {
+    @content;
+  }
+}

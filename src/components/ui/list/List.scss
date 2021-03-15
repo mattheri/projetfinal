@@ -1,0 +1,22 @@
+@use '../../../scss/variables' as var;
+
+.list {
+  list-style-position: inside;
+  padding: 0;
+  list-style: none;
+  margin: 1rem 0 3rem 0;
+
+  li {
+    font-weight: 600;
+  }
+
+  li::before {
+    content: "\2022";
+    color: var.$mauve;
+    font-weight: bold;
+    display: inline-block;
+    transform: translateY(5%);
+    font-size: 1.5rem;
+    padding-right: 1em;
+  }
+}

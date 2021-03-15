@@ -1,0 +1,16 @@
+@use '../../../../../scss/variables' as var;
+@use '../../../../../scss/mixins';
+
+.banner-content {
+  padding: 15px;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var.$black;
+  }
+
+  @include mixins.mqMd {
+    padding: 10rem 8rem;
+  }
+}

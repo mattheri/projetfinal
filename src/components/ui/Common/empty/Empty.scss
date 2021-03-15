@@ -1,0 +1,12 @@
+.empty {
+  overflow: hidden;
+  height: 150px;
+  h1 {
+    margin: auto;
+  }
+  img {
+    position: absolute;
+    width: 50%;
+    z-index: -1;
+  }
+}

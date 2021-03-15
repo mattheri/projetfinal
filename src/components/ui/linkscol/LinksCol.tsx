@@ -1,10 +1,8 @@
-import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import _chunk from "lodash/chunk";
-import { RouterLink } from "../routerlink/RouterLink";
+import { RouterLink } from "../Common/routerlink/RouterLink";
 import { useLocation } from "react-router-dom";
 
 export const LinksCol = () => {
@@ -37,10 +35,11 @@ export const LinksCol = () => {
   return (
     <Row>
       {links.map((col, index) => (
-        <Col key={index}>
+        <Col sm={12} md={6} lg={3} key={index}>
           <Nav className="flex-column align-items-start">
             {col.map((link) => (
               <Nav.Item
+                key={link.to}
                 variant="link"
                 active={location.search === link.to.replace("stagiaires", "")}
                 to={link.to}

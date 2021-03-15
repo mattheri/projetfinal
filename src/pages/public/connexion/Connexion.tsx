@@ -1,5 +1,5 @@
 import Container from "react-bootstrap/Container";
-import { Formulaire } from "../../../components/ui/form/Form";
+import { Formulaire } from "../../../components/ui/Common/form/Form";
 import { login } from "../../../forms/login/login";
 
 export const Connexion = () => (

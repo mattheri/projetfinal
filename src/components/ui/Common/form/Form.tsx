@@ -1,9 +1,9 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
-import { IForm } from "../../../react-app-env";
+import { IForm } from "../../../../react-app-env";
 import { useFormik } from "formik";
 import Button from "react-bootstrap/Button";
-import { Input } from "../input/Input";
+import { Input } from "../../input/Input";
 import Col from "react-bootstrap/Col";
 import { FormRow } from "./FormRow";
 

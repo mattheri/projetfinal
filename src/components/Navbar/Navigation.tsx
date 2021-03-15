@@ -1,12 +1,12 @@
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { Logo } from "../ui/logo/Logo";
-import { RouterLink } from "../ui/routerlink/RouterLink";
+import { RouterLink } from "../ui/Common/routerlink/RouterLink";
 import "./Navigation.scss";
 
 export const Navigation = () => {
   return (
-    <Navbar expand="lg" className="mx-lg-5">
+    <Navbar expand="md" className="mx-lg-5">
       <Navbar.Brand className="mr-lg-5">
         <Logo />
       </Navbar.Brand>
