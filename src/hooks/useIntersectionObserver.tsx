@@ -1,11 +1,18 @@
 import React from "react";
 
+type ObserverOptions = {
+  root?: Element;
+  rootMargin?: string;
+  threshold?: number | number[];
+};
+
 export const useIntersectionObserver = (
   ref: React.RefObject<HTMLElement>,
   observerCallback: (
     entry: IntersectionObserverEntry,
     observer: IntersectionObserver
-  ) => void
+  ) => void,
+  options?: ObserverOptions
 ) => {
   const observerFunction = (
     entries: IntersectionObserverEntry[],
@@ -15,15 +22,13 @@ export const useIntersectionObserver = (
       observerCallback.apply(observer, [entry, observer]);
     });
   };
-
   let observer = React.useRef<IntersectionObserver>(null);
 
   React.useEffect(() => {
     if (observer.current) {
       observer.current.disconnect();
     }
-
-    observer = { current: new IntersectionObserver(observerFunction) };
+    observer = { current: new IntersectionObserver(observerFunction, options) };
 
     const { current: currentObserver } = observer;
 
@@ -32,5 +37,5 @@ export const useIntersectionObserver = (
     }
 
     return () => currentObserver?.disconnect();
-  }, [ref, observer]);
+  }, [ref, observer, options?.root, options?.rootMargin, options?.threshold]);
 };

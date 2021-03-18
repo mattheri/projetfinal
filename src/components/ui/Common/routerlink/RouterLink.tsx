@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { Link, LinkProps } from "react-router-dom";
 import "./RouterLink.scss";
 
-type RouterLinkProps = ButtonProps & LinkProps;
+export type RouterLinkProps = ButtonProps & LinkProps;
 
 export const RouterLink = ({
   to,

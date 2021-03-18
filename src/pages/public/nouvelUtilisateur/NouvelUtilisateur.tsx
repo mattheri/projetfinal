@@ -11,7 +11,7 @@ type Credentials = {
   signupPassword: string;
 };
 
-export const Inscription = () => {
+export const NouvelUtilisateur = () => {
   const { onSignIn } = useAuth();
 
   const navigate = useNavigate();

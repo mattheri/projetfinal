@@ -2,7 +2,6 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import usageImage from "../../../assets/images/cta.png";
-import { LongCard } from "../../../components/ui/card/LongCard/LongCard";
 import { BannerCTA } from "../../../components/ui/Public/cta/BannerCTA/BannerCTA";
 import { CardsCta } from "../../../components/ui/Public/cta/CardsCta/CardsCta";
 import { CTA } from "../../../components/ui/Public/cta/CTA/CTA";
@@ -28,7 +27,9 @@ export const Index = () => {
             "Morbi sodales risus quis orci hendrerit sempe",
           ]}
         />
-        <SquareButton>Publier une offre de stage maintenant</SquareButton>
+        <SquareButton to="/entreprise/stages/new">
+          Publier une offre de stage maintenant
+        </SquareButton>
       </BannerCTA>
       <CTA
         headline="Votre futur stagiare se trouve ici."
@@ -47,7 +48,9 @@ export const Index = () => {
             "Morbi sodales risus quis orci hendrerit sempe",
           ]}
         />
-        <SquareButton>Publier une offre de stage maintenant</SquareButton>
+        <SquareButton to="/entreprise/stages/new">
+          Publier une offre de stage maintenant
+        </SquareButton>
       </BannerCTA>
       <CTA
         headline="Facile à utiliser!"
@@ -66,7 +69,7 @@ export const Index = () => {
         </Row>
         <Row>
           <Col className="d-flex justify-content-center">
-            <SquareButton className="p-3 px-5">
+            <SquareButton to="/inscription" className="p-3 px-5">
               Inscrivez-vous maintenant
             </SquareButton>
           </Col>

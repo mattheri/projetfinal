@@ -5,7 +5,6 @@ export interface User {
   _id: string;
   courriel: string;
   role: string;
-  hash: string;
   actif: boolean;
   verifie: boolean;
   premiereConnexion: boolean;
@@ -46,6 +45,7 @@ export interface Region {
   nom: string;
   actif: boolean;
   verifie: boolean;
+  slug: string;
 }
 
 export interface SecteurActivite {
@@ -53,6 +53,7 @@ export interface SecteurActivite {
   nom: string;
   actif: boolean;
   verifie: boolean;
+  slug: string;
 }
 
 export interface DemandeStage {
@@ -112,6 +113,8 @@ export type IForm =
       required?: boolean;
       span?: ColProps;
       row: number;
+      values?: IForm[] | null;
+      value?: string;
       validate: (value: string) => string | undefined;
     }
   | {
@@ -121,6 +124,8 @@ export type IForm =
       label?: string;
       required?: boolean;
       span?: ColProps;
+      values?: IForm[] | null;
+      value?: string;
       row: number;
       validate?: (value: string) => string | undefined;
     };

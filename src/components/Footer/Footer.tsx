@@ -1,16 +1,17 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Navbar from "react-bootstrap/Navbar";
-import { LinksCol } from "../ui/linkscol/LinksCol";
+import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Row from "react-bootstrap/Row";
+import { motion } from "framer-motion";
 import { RouterLink } from "../ui/Common/routerlink/RouterLink";
+import { LinksCol } from "../ui/linkscol/LinksCol";
 import "./Footer.scss";
 
 export const Footer = () => {
   return (
-    <>
+    <motion.div layout>
       <Container className="bg-light py-5" fluid as="footer">
         <Container>
           <Row>
@@ -72,6 +73,6 @@ export const Footer = () => {
           </Nav.Item>
         </Nav>
       </Navbar>
-    </>
+    </motion.div>
   );
 };

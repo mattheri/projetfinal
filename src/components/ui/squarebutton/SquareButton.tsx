@@ -1,17 +1,20 @@
-import Button from "react-bootstrap/Button";
-import { ButtonProps } from "react-bootstrap";
 import classnames from "classnames";
 import "./SquareButton.scss";
-
-type SquareButtonProps = ButtonProps;
+import { RouterLink, RouterLinkProps } from "../Common/routerlink/RouterLink";
+import React from "react";
 
 export const SquareButton = ({
   children,
+  to,
   ...rest
-}: React.PropsWithChildren<SquareButtonProps>) => {
+}: React.PropsWithChildren<RouterLinkProps>) => {
   return (
-    <Button {...rest} className={classnames("sqr-btn", rest.className)}>
+    <RouterLink
+      to={to}
+      {...rest}
+      className={classnames("sqr-btn", rest.className)}
+    >
       {children}
-    </Button>
+    </RouterLink>
   );
 };

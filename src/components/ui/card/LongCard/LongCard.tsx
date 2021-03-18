@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import { SmallText } from "../../smalltext/SmallText";
 import { CardProps } from "../SmallCard/SmallCard";
+import { motion } from "framer-motion";
 import "./LongCard.scss";
 
 type LongCardProps = CardProps & {
@@ -20,7 +21,12 @@ export const LongCard = ({
   body,
 }: LongCardProps) => {
   return (
-    <Card className="long-card">
+    <Card
+      as={motion.div}
+      initial={{ y: 10, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      className="long-card mb-3"
+    >
       <Row>
         <Col md={10}>
           <Card.Title>{title}</Card.Title>

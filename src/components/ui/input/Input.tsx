@@ -43,6 +43,7 @@ export const Input = ({
         onChange={handler}
         value={value}
         onBlur={onBlur}
+        isInvalid={touched && !!error}
       />
       <FormControl.Feedback as="small" type="invalid">
         {touched && error}

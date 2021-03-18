@@ -1,7 +1,8 @@
 import React from "react";
 import classnames from "classnames";
-import "./Header.scss";
+import { motion, AnimatePresence } from "framer-motion";
 import { Navigation } from "../Navbar/Navigation";
+import "./Header.scss";
 
 type HeaderProps = {
   full?: boolean;
@@ -19,15 +20,21 @@ export const Header = ({ full }: HeaderProps) => {
   return (
     <header className={classnames({ ["full"]: full === true })} ref={headerRef}>
       <Navigation />
-      {height && (
-        <img
-          src={`https://via.placeholder.com/${window.innerWidth}x${height}`}
-          className="background-image"
-          alt="Header Image"
-          loading="lazy"
-          decoding="async"
-        />
-      )}
+      <AnimatePresence>
+        {height && (
+          <motion.img
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            src={`https://via.placeholder.com/${window.innerWidth}x${height}`}
+            className="background-image"
+            alt="Header Image"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+      </AnimatePresence>
     </header>
   );
 };

@@ -6,23 +6,26 @@ import Button from "react-bootstrap/Button";
 import { Input } from "../../input/Input";
 import Col from "react-bootstrap/Col";
 import { FormRow } from "./FormRow";
+import { motion, MotionProps } from "framer-motion";
 
-type FormProps = {
+type FormProps = MotionProps & {
   formInputs: IForm[];
   initialValues?: { [key: string]: string };
+  onSubmit: (...args: any) => void;
 };
 
-export const Formulaire = ({ formInputs, initialValues }: FormProps) => {
+export const Formulaire = ({
+  formInputs,
+  initialValues,
+  onSubmit,
+  ...motionProps
+}: FormProps) => {
   // Use the initialValues prop or
   // build an object using the id of the input as the key and
   // initialize it as an empty string
   const values =
     initialValues ||
     Object.fromEntries(formInputs.map((inputs) => [inputs.id, ""]));
-
-  const handleSubmit = (value: typeof values) => {
-    console.log(value);
-  };
 
   const validate = (value: typeof values) => {
     let errors: { [x: string]: string | undefined } = {};
@@ -51,7 +54,7 @@ export const Formulaire = ({ formInputs, initialValues }: FormProps) => {
 
   const formik = useFormik({
     initialValues: values,
-    onSubmit: handleSubmit,
+    onSubmit,
     validateOnChange: true,
     validate: validate,
   });
@@ -62,7 +65,7 @@ export const Formulaire = ({ formInputs, initialValues }: FormProps) => {
     const requireds =
       formInputs.filter((inputs) => {
         if (inputs.required) {
-          return formik.values[`${inputs.id}`].length > 0;
+          return formik.values[`${inputs.id}`]?.length > 0;
         }
 
         return null;
@@ -127,13 +130,13 @@ export const Formulaire = ({ formInputs, initialValues }: FormProps) => {
   });
 
   return (
-    <Form onSubmit={formik.handleSubmit}>
+    <motion.form {...motionProps} onSubmit={formik.handleSubmit}>
       {FormRows.map((inputs) => inputs)}
       <Col>
         <Button type="submit" disabled={handleButtonValidation()}>
           Submit
         </Button>
       </Col>
-    </Form>
+    </motion.form>
   );
 };
