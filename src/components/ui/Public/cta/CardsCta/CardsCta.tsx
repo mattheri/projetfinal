@@ -1,12 +1,14 @@
 import _chunk from "lodash/chunk";
 import React from "react";
+import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import { useModalMessages } from "../../../../../hooks/useModalMessages";
 import { useQueryOnObserverPosition } from "../../../../../hooks/useQueryOnObserverPosition";
 import { OffreStage, Student, User } from "../../../../../react-app-env";
 import { isOffreDeStage } from "../../../../../utils/typeGuards";
-import { SmallCard } from "../../../card/SmallCard/SmallCard";
+import { SmallCard } from "../../../Common/card/SmallCard/SmallCard";
 import { Empty } from "../../../Common/empty/Empty";
 import { Error } from "../../../Common/error/Error";
 import { Loading } from "../../../Common/loading/Loading";
@@ -26,6 +28,8 @@ export const CardsCta = ({
     ref,
     resource
   );
+
+  const { handleShow, Modal } = useModalMessages();
 
   return (
     <Container ref={ref} fluid>
@@ -53,9 +57,16 @@ export const CardsCta = ({
                             >
                               Détails
                             </RouterLink>
-                            <RouterLink to={`/stage/${offre._id}`}>
+                            <Button
+                              onClick={() =>
+                                handleShow({
+                                  contactee: offre._id,
+                                  name: offre.titre,
+                                })
+                              }
+                            >
                               Contacter
-                            </RouterLink>
+                            </Button>
                           </>
                         }
                       />
@@ -100,9 +111,16 @@ export const CardsCta = ({
                             >
                               Détails
                             </RouterLink>
-                            <RouterLink to={`/stagiaire/${stagiaire._id}`}>
+                            <Button
+                              onClick={() =>
+                                handleShow({
+                                  contactee: stagiaire._id,
+                                  name: `${stagiaire.prenom} ${stagiaire.nom}`,
+                                })
+                              }
+                            >
                               Contacter
-                            </RouterLink>
+                            </Button>
                           </>
                         }
                       />
@@ -121,6 +139,7 @@ export const CardsCta = ({
           )}
         </>
       )}
+      {Modal}
     </Container>
   );
 };

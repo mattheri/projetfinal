@@ -1,8 +1,7 @@
-import React from "react";
 import axios from "axios";
-import { useIntersectionObserver } from "./useIntersectionObserver";
-import _memoize from "lodash/memoize";
+import React from "react";
 import { useInfiniteQuery } from "react-query";
+import { useIntersectionObserver } from "./useIntersectionObserver";
 
 export const useInfiniteQueryOnObserverPosition = (
   ref: React.RefObject<HTMLElement>,

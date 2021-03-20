@@ -4,6 +4,7 @@ import { login } from "../../../forms/login/login";
 import axios from "axios";
 import { User } from "../../../react-app-env";
 import { useAuth } from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 type Credentials = {
   loginUsername: string;
@@ -12,6 +13,14 @@ type Credentials = {
 
 export const Connexion = () => {
   const { onSignIn } = useAuth();
+  const navigate = useNavigate();
+  const handleRerouteOnSigin = (isFirstConnect: boolean) => {
+    if (!isFirstConnect) {
+      return navigate("/");
+    }
+
+    return navigate("/newuser");
+  };
 
   const handleSubmit = async ({
     loginUsername,
@@ -20,11 +29,13 @@ export const Connexion = () => {
     try {
       const user: User = await (
         await axios.post(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_USERS}/signin`,
+          `${process.env.REACT_APP_API}${process.env.REACT_APP_USERS}/login`,
           { courriel: loginUsername, password: loginPassword }
         )
       ).data;
+      console.log(user);
       onSignIn(user);
+      handleRerouteOnSigin(user.premiereConnexion);
     } catch (err) {
       console.warn(err);
     }
@@ -34,7 +45,11 @@ export const Connexion = () => {
     <>
       <Container fluid>
         <Container className="py-5">
-          <Formulaire formInputs={login} onSubmit={handleSubmit} />
+          <Formulaire
+            formInputs={login}
+            onSubmit={handleSubmit}
+            submitButtonValue="Connexion"
+          />
         </Container>
       </Container>
     </>

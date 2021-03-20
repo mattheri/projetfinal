@@ -17,7 +17,9 @@ export interface Student {
   nom: string;
   prenom: string;
   telephone: string;
+  adresse: string;
   ville: string;
+  codePostal: string;
   competences: string[];
   formations: string[];
   cv: string;
@@ -29,15 +31,15 @@ export interface Enterprise {
   nom: string;
   nomPersonneContact: string;
   prenomPersonneContact: string;
-  courriel: string;
+  courrielPersonneContact: string;
   telephone: string;
   adresse: string;
+  codePostal: string;
   ville: string;
   siteWeb: string;
   logo: string;
   descriptions: string;
   secteurActivites: string[];
-  typesPostes: string[];
 }
 
 export interface Region {
@@ -49,6 +51,14 @@ export interface Region {
 }
 
 export interface SecteurActivite {
+  _id: string;
+  nom: string;
+  actif: boolean;
+  verifie: boolean;
+  slug: string;
+}
+
+export interface Formation {
   _id: string;
   nom: string;
   actif: boolean;
@@ -104,6 +114,11 @@ export interface Message {
   readInput: boolean;
 }
 
+export type OptionValue = {
+  value: string;
+  text: string;
+};
+
 export type IForm =
   | {
       type: string;
@@ -115,7 +130,8 @@ export type IForm =
       row: number;
       values?: IForm[] | null;
       value?: string;
-      validate: (value: string) => string | undefined;
+      validate?: (value: string) => string | undefined;
+      options?: OptionValue[];
     }
   | {
       type: "textarea";
@@ -128,4 +144,18 @@ export type IForm =
       value?: string;
       row: number;
       validate?: (value: string) => string | undefined;
+      options?: OptionValue[];
+    }
+  | {
+      type: "select";
+      id: string;
+      placeholder?: string;
+      label: string;
+      required?: boolean;
+      span?: ColProps;
+      values?: IForm[] | null;
+      value?: string;
+      row: number;
+      validate?: (value: string) => string | undefined;
+      options: OptionValue[];
     };

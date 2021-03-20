@@ -6,7 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Row from "react-bootstrap/Row";
 import { motion } from "framer-motion";
 import { RouterLink } from "../ui/Common/routerlink/RouterLink";
-import { LinksCol } from "../ui/linkscol/LinksCol";
+import { LinksCol } from "../ui/Public/linkscol/LinksCol";
 import "./Footer.scss";
 
 export const Footer = () => {

@@ -1,0 +1,16 @@
+@use '../../../../scss/variables' as var;
+
+.message {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  border-radius: 5px;
+  &.inbound {
+    background-color: var.$blue;
+    text-align: right;
+
+    p,
+    small {
+      color: white;
+    }
+  }
+}

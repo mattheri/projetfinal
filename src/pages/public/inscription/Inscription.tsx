@@ -55,7 +55,11 @@ export const Inscription = () => {
     <>
       <Container fluid>
         <Container className="py-5">
-          <Formulaire formInputs={signup} onSubmit={handleSubmit} />
+          <Formulaire
+            formInputs={signup}
+            onSubmit={handleSubmit}
+            submitButtonValue="S'inscrire"
+          />
         </Container>
       </Container>
     </>

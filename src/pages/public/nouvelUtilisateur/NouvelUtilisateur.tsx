@@ -1,63 +1,54 @@
 import Container from "react-bootstrap/Container";
 import { Formulaire } from "../../../components/ui/Common/form/Form";
-import { signup } from "../../../forms/signup/signup";
-import axios from "axios";
-import { User } from "../../../react-app-env";
-import { useAuth } from "../../../hooks/useAuth";
+import { newuser } from "../../../forms/newuser/newuser";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { newUserSignupState } from "../../../state/newUserSignupState";
+import { appState } from "../../../state/app";
 
-type Credentials = {
-  signupUsername: string;
-  signupPassword: string;
+type NewUserForm = {
+  newuserAddress: string;
+  newuserCity: string;
+  newuserPostalCode: string;
+  newuserPhoneNumber: string;
+  newuserType: string;
 };
 
 export const NouvelUtilisateur = () => {
-  const { onSignIn } = useAuth();
-
   const navigate = useNavigate();
-  const handleRerouteOnSignup = (isFirstConnect: boolean) => {
-    if (!isFirstConnect) {
-      return navigate("/");
-    }
-
-    return navigate("/newuser");
-  };
+  const [newUserState, setNewUserState] = useRecoilState(newUserSignupState);
+  const currentAppState = useRecoilValue(appState);
 
   const handleSubmit = async ({
-    signupUsername,
-    signupPassword,
-  }: Credentials) => {
-    const body = {
-      courriel: signupUsername,
-      password: signupPassword,
-      role: "user",
-      actif: true,
-      verifie: false,
-      premiereConnexion: true,
-      entiteId: "",
-      type: "",
-    };
-    try {
-      const user: User = await (
-        await axios.post(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_USERS}/signup`,
-          body
-        )
-      ).data;
-      onSignIn(user);
-      handleRerouteOnSignup(user.premiereConnexion);
-    } catch (err) {
-      console.warn(err);
-    }
+    newuserAddress,
+    newuserCity,
+    newuserPhoneNumber,
+    newuserPostalCode,
+    newuserType = "etudiant",
+  }: NewUserForm) => {
+    setNewUserState({
+      type: newuserType,
+      adresse: newuserAddress,
+      telephone: newuserPhoneNumber,
+      ville: newuserCity,
+      codePostal: newuserPostalCode,
+    });
+    navigate(newuserType === "etudiant" ? "/new/etudiant" : "/new/entreprise");
   };
 
+  if (!currentAppState.connected) navigate("/connexion");
+
   return (
-    <>
+    <main>
       <Container fluid>
         <Container className="py-5">
-          <Formulaire formInputs={signup} onSubmit={handleSubmit} />
+          <Formulaire
+            formInputs={newuser}
+            onSubmit={handleSubmit}
+            submitButtonValue="Continuer"
+          />
         </Container>
       </Container>
-    </>
+    </main>
   );
 };

@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import "./BannerCTA.scss";
-import { SmallText } from "../../../smalltext/SmallText";
+import { SmallText } from "../../../Common/smalltext/SmallText";
 
 type BannerCTAProps = {
   image?: string;

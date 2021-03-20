@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { Public } from "../../pages/public/Public";
@@ -9,10 +10,22 @@ import { Inscription } from "../../pages/public/inscription/Inscription";
 import { Index } from "../../pages/public/index/Index";
 import { NouvelUtilisateur } from "../../pages/public/nouvelUtilisateur/NouvelUtilisateur";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { useAuth } from "../../hooks/useAuth";
+import { New } from "../../pages/public/new/New";
+import { NouvelEtudiant } from "../../pages/public/nouvelEtuditant/NouvelEtudiant";
+import { NouvelleEntreprise } from "../../pages/public/nouvelleEntreprise/nouvelleEntreprise";
 
 const queryClient = new QueryClient();
 
 function App() {
+  const { currentUser, onSignIn } = useAuth();
+
+  React.useEffect(() => {
+    if (currentUser) {
+      onSignIn(currentUser);
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Routes>
@@ -23,6 +36,10 @@ function App() {
           <Route path="connexion" element={<Connexion />} />
           <Route path="inscription" element={<Inscription />} />
           <Route path="newuser" element={<NouvelUtilisateur />} />
+          <Route path="new" element={<New />}>
+            <Route path="etudiant" element={<NouvelEtudiant />} />
+            <Route path="entreprise" element={<NouvelleEntreprise />} />
+          </Route>
         </Route>
         <Route path="/admin" element={<Admin />}></Route>
       </Routes>

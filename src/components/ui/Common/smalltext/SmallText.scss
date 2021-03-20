@@ -1,0 +1,15 @@
+@use '../../../../scss/variables' as var;
+
+.small-text {
+  &-text {
+    color: var.$black80;
+  }
+  &-warning {
+    color: var.$warn;
+  }
+  &-error {
+    color: var.$danger;
+  }
+  margin-block-end: 0;
+  margin-block-start: 0;
+}

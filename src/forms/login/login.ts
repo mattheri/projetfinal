@@ -8,7 +8,6 @@ export const login: IForm[] = [
     required: true,
     span: {
       sm: 12,
-      md: 6,
     },
     row: 1,
     validate: (value: string) => {
@@ -25,10 +24,7 @@ export const login: IForm[] = [
     label: "Mot de passe",
     span: {
       sm: 12,
-      md: 6,
     },
-    row: 2,
-    required: true,
     validate: (value: string) => {
       if (!value.length) {
         return "Un mot de passe est requis";
@@ -36,5 +32,7 @@ export const login: IForm[] = [
         return "Le mot de passe doit contenir minimum 8 caractères, une lettre et un chiffre";
       }
     },
+    row: 2,
+    required: true,
   },
 ];

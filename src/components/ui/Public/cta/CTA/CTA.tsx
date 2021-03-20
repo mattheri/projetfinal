@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { SmallText } from "../../../smalltext/SmallText";
+import { SmallText } from "../../../Common/smalltext/SmallText";
 
 type CTAprops = {
   headline: string;

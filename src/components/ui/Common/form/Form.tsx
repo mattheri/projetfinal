@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import { IForm } from "../../../../react-app-env";
 import { useFormik } from "formik";
 import Button from "react-bootstrap/Button";
-import { Input } from "../../input/Input";
+import { Input } from "../input/Input";
 import Col from "react-bootstrap/Col";
 import { FormRow } from "./FormRow";
 import { motion, MotionProps } from "framer-motion";
@@ -11,12 +11,14 @@ import { motion, MotionProps } from "framer-motion";
 type FormProps = MotionProps & {
   formInputs: IForm[];
   initialValues?: { [key: string]: string };
+  submitButtonValue?: string;
   onSubmit: (...args: any) => void;
 };
 
 export const Formulaire = ({
   formInputs,
   initialValues,
+  submitButtonValue = "Submit",
   onSubmit,
   ...motionProps
 }: FormProps) => {
@@ -54,7 +56,10 @@ export const Formulaire = ({
 
   const formik = useFormik({
     initialValues: values,
-    onSubmit,
+    onSubmit: (values, { resetForm }) => {
+      onSubmit(values);
+      resetForm({ values: undefined });
+    },
     validateOnChange: true,
     validate: validate,
   });
@@ -80,7 +85,6 @@ export const Formulaire = ({
     if (requireds || errors) {
       return true;
     }
-
     // Otherwise, return false
     return false;
   };
@@ -100,6 +104,7 @@ export const Formulaire = ({
         error={formik.errors[`${inputs.id}`]}
         touched={formik.touched[`${inputs.id}`]}
         row={inputs.row}
+        options={inputs.options}
         {...inputs.span}
       />
     </Form.Group>
@@ -129,12 +134,14 @@ export const Formulaire = ({
     return React.Fragment;
   });
 
+  console.log(formik.values);
+
   return (
     <motion.form {...motionProps} onSubmit={formik.handleSubmit}>
       {FormRows.map((inputs) => inputs)}
       <Col>
         <Button type="submit" disabled={handleButtonValidation()}>
-          Submit
+          {submitButtonValue}
         </Button>
       </Col>
     </motion.form>

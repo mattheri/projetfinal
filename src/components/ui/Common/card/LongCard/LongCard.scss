@@ -1,0 +1,26 @@
+@use '../../../../../scss/variables' as var;
+
+.long-card {
+  padding: 1rem;
+  max-width: 100%;
+  .card-title {
+    color: var.$blue;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .card-subtitle {
+    font-weight: 700;
+  }
+  .small-text-text {
+    color: var.$black80;
+    font-weight: 400;
+  }
+  .card-body {
+    padding: 1rem 0 1.5rem 0;
+  }
+  .card-footer {
+    border: none;
+    background-color: white;
+    padding: 0.5rem 0;
+  }
+}
