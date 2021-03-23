@@ -21,7 +21,7 @@ export const MessageHub = ({ messages }: MessageHubProps) => {
               date={message.date}
               id={message._id}
               text={message.message}
-              type={currentUser?._id === message.input ? "outbound" : "inbound"}
+              type={currentUser?._id === message.from ? "outbound" : "inbound"}
             />
           </Row>
         );

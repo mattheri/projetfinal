@@ -1,22 +1,17 @@
 import Form from "react-bootstrap/Form";
 import { InputProps } from "../Input";
-import { OptionValue } from "../../../../../react-app-env";
 
 type SelectProps = InputProps;
 
 export const Select = ({
   id,
   type,
-  label,
   handler,
-  onBlur,
   touched,
   value,
   error,
-  placeholder,
   options,
 }: SelectProps) => {
-  console.log(options);
   return (
     <Form.Control
       as="select"

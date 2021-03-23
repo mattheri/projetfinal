@@ -33,9 +33,9 @@ export const MessageModal = ({
       const msg: MessageObject = {
         active: true,
         message: message,
-        input: contactee,
-        output: contacter as string,
-        readInput: false,
+        to: contactee,
+        from: contacter as string,
+        read: false,
       };
       const res = await axios.post(
         `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}`,
@@ -51,7 +51,7 @@ export const MessageModal = ({
     try {
       const response = await (
         await axios.get(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}?input=${contactee}&output=${contacter}`
+          `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}?from=${contacter}&to=${contactee}`
         )
       ).data;
       return response;

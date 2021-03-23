@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import { filter } from "../../../../state/filterState";
+import { Error } from "../../Common/error/Error";
 import { Loading } from "../../Common/loading/Loading";
 import "./Sidebar.scss";
 const queryKey = uuidv4();
@@ -28,6 +29,7 @@ export const Sidebar = ({ title, resource }: SidebarProps) => {
       const response = await (
         await axios.get(`${process.env.REACT_APP_API}${resource}`)
       ).data;
+      console.log(response);
       return response;
     } catch (err) {
       console.warn(err);
@@ -35,7 +37,7 @@ export const Sidebar = ({ title, resource }: SidebarProps) => {
     }
   };
 
-  const { data, isLoading } = useQuery(`${queryKey}`, {
+  const { data, isLoading, isError } = useQuery(`${queryKey}`, {
     queryFn: queryFn,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
@@ -45,7 +47,12 @@ export const Sidebar = ({ title, resource }: SidebarProps) => {
 
   return (
     <AnimatePresence>
-      <Button variant="link" className="toggle-btn" onClick={handleToggle}>
+      <Button
+        key="button"
+        variant="link"
+        className="toggle-btn"
+        onClick={handleToggle}
+      >
         {show ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -72,6 +79,8 @@ export const Sidebar = ({ title, resource }: SidebarProps) => {
       </Button>
       {show && (
         <motion.aside
+          key="sidebar"
+          className="sidebar"
           layout
           initial={{ x: 0, opacity: 1 }}
           animate={{ x: 0, opacity: 1 }}
@@ -96,10 +105,14 @@ export const Sidebar = ({ title, resource }: SidebarProps) => {
             </motion.h3>
           </div>
           {isLoading && <Loading />}
+          {isError && <Error />}
           {data && (
             <ListGroup>
               {(data as any[]).map((resource) => (
-                <ListGroup.Item active={resource.nom === filterState.filter}>
+                <ListGroup.Item
+                  key={resource._id}
+                  active={resource.nom === filterState.filter}
+                >
                   <Button
                     onClick={() => {
                       setFilterState((state) =>

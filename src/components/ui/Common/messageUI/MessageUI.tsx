@@ -16,12 +16,12 @@ export const MessageUI = ({ type, id, text, date }: MessageProps) => {
   const msgDate = new Date(date);
   return (
     <Col
-      sm={{ span: 6, offset: type === "outbound" ? 0 : 6 }}
+      sm={{ span: 6, offset: type === "inbound" ? 0 : 6 }}
       as={motion.article}
       layout
       initial={{ x: type === "outbound" ? 10 : -10, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      className={classnames("message", { ["inbound"]: type === "inbound" })}
+      className={classnames("message", { ["outbound"]: type === "outbound" })}
     >
       <SmallText condensed type="text">
         {msgDate.toLocaleDateString()}

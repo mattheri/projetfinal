@@ -14,6 +14,9 @@ import { useAuth } from "../../hooks/useAuth";
 import { New } from "../../pages/public/new/New";
 import { NouvelEtudiant } from "../../pages/public/nouvelEtuditant/NouvelEtudiant";
 import { NouvelleEntreprise } from "../../pages/public/nouvelleEntreprise/nouvelleEntreprise";
+import { Messages } from "../../pages/public/messages/Messages";
+import { NouvelleOffre } from "../../pages/admin/nouvelleOffre/NouvelleOffre";
+import { MesOffres } from "../../pages/admin/mesOffres/MesOffres";
 
 const queryClient = new QueryClient();
 
@@ -40,8 +43,14 @@ function App() {
             <Route path="etudiant" element={<NouvelEtudiant />} />
             <Route path="entreprise" element={<NouvelleEntreprise />} />
           </Route>
+          <Route path="messages" element={<Messages />} />
         </Route>
-        <Route path="/admin" element={<Admin />}></Route>
+        <Route path="/admin" element={<Admin />}>
+          <Route path="new">
+            <Route path="offre" element={<NouvelleOffre />} />
+          </Route>
+          <Route path="mesoffres" element={<MesOffres />} />
+        </Route>
       </Routes>
       <Outlet />
       <ReactQueryDevtools />

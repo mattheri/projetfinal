@@ -23,6 +23,8 @@ export const newenterprise: IForm[] = [
     required: true,
     span: {
       sm: 12,
+      md: 6,
+      lg: 4,
     },
     row: 2,
     validate: (value: string) => {
@@ -38,6 +40,8 @@ export const newenterprise: IForm[] = [
     required: true,
     span: {
       sm: 12,
+      md: 6,
+      lg: 4,
     },
     row: 2,
     validate: (value: string) => {
@@ -53,6 +57,7 @@ export const newenterprise: IForm[] = [
     required: true,
     span: {
       sm: 12,
+      lg: 4,
     },
     row: 2,
     validate: (value: string) => {
@@ -70,6 +75,7 @@ export const newenterprise: IForm[] = [
     required: false,
     span: {
       sm: 12,
+      md: 6,
     },
     row: 3,
   },
@@ -80,13 +86,14 @@ export const newenterprise: IForm[] = [
     required: false,
     span: {
       sm: 12,
+      md: 6,
     },
     row: 3,
   },
   {
     id: "newenterpriseDescription",
     type: "textarea",
-    placeholder: "C'est quoi travailler chez vous?",
+    label: "C'est quoi travailler chez vous?",
     required: false,
     span: {
       sm: 12,

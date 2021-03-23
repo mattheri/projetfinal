@@ -8,6 +8,7 @@ export const newstudent: IForm[] = [
     required: true,
     span: {
       sm: 12,
+      md: 6,
     },
     row: 1,
     validate: (value: string) => {
@@ -23,6 +24,7 @@ export const newstudent: IForm[] = [
     required: true,
     span: {
       sm: 12,
+      md: 6,
     },
     row: 1,
     validate: (value: string) => {

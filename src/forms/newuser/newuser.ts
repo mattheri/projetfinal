@@ -23,6 +23,8 @@ export const newuser: IForm[] = [
     required: true,
     span: {
       sm: 12,
+      md: 6,
+      lg: 4,
     },
     row: 2,
     validate: (value: string) => {
@@ -38,6 +40,8 @@ export const newuser: IForm[] = [
     required: true,
     span: {
       sm: 12,
+      md: 6,
+      lg: 4,
     },
     row: 2,
     validate: (value: string) => {
@@ -55,6 +59,7 @@ export const newuser: IForm[] = [
     required: true,
     span: {
       sm: 12,
+      lg: 4,
     },
     row: 2,
     validate: (value: string) => {
@@ -71,7 +76,7 @@ export const newuser: IForm[] = [
     label: "Je suis un...",
     required: false,
     span: {
-      sm: 6,
+      sm: 12,
     },
     row: 3,
     validate: (value: string) => {

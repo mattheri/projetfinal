@@ -18,6 +18,7 @@
     "framer-motion": "^3.10.3",
     "history": "^5.0.0",
     "lodash": "^4.17.21",
+    "luxon": "^1.26.0",
     "normalize.css": "^8.0.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.1",
@@ -58,6 +59,7 @@
   "devDependencies": {
     "@types/classnames": "^2.2.11",
     "@types/lodash": "^4.14.168",
+    "@types/luxon": "^1.26.2",
     "@types/uuid": "^8.3.0"
   }
 }

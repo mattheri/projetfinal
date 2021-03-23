@@ -5,30 +5,58 @@ import { RouterLink } from "../ui/Common/routerlink/RouterLink";
 import { useRecoilValue } from "recoil";
 import { appState } from "../../state/app";
 import { useAuth } from "../../hooks/useAuth";
+import { useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import classnames from "classnames";
 import "./Navigation.scss";
 
 export const Navigation = () => {
   const currentAppState = useRecoilValue(appState);
   const { onSignOut } = useAuth();
+  const location = useLocation();
   return (
-    <Navbar expand="md" className="mx-lg-5">
+    <Navbar
+      expand="md"
+      className={classnames({
+        ["mx-lg-5"]: !location.pathname.includes("admin"),
+        ["bg-dark"]: location.pathname.includes("admin"),
+      })}
+    >
       <Navbar.Brand className="mr-lg-5">
         <Logo />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link to="/stages" variant="success" as={RouterLink}>
-            Trouver votre stage
-          </Nav.Link>
-          <Nav.Link to="/stagiaires" variant="success" as={RouterLink}>
-            Trouver votre futur stagiaire
-          </Nav.Link>
+          {location.pathname.includes("admin") ? (
+            <>
+              <Nav.Link variant="success" to="new/offre" as={RouterLink}>
+                Créer une offre
+              </Nav.Link>
+              <Nav.Link variant="success" to="mesoffres" as={RouterLink}>
+                Gérer mes offres
+              </Nav.Link>
+            </>
+          ) : (
+            <>
+              <Nav.Link to="/stages" variant="success" as={RouterLink}>
+                Trouver votre stage
+              </Nav.Link>
+              <Nav.Link to="/stagiaires" variant="success" as={RouterLink}>
+                Trouver votre futur stagiaire
+              </Nav.Link>
+            </>
+          )}
         </Nav>
         <Nav>
           {currentAppState.connected ? (
             <>
+              {currentAppState.user?.role === "admin" &&
+                !location.pathname.includes("admin") && (
+                  <Nav.Link variant="link" to="admin" as={RouterLink}>
+                    👷 Admin Panel
+                  </Nav.Link>
+                )}
               <Nav.Link to="/messages" variant="primary" as={RouterLink}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

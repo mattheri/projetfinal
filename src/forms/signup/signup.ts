@@ -27,6 +27,7 @@ export const signup: IForm[] = [
     label: "Mot de passe",
     span: {
       sm: 12,
+      md: 6,
     },
     row: 2,
     values: null,
@@ -47,6 +48,7 @@ export const signup: IForm[] = [
     label: "Retapez le mot de passe",
     span: {
       sm: 12,
+      md: 6,
     },
     row: 2,
     values: null,

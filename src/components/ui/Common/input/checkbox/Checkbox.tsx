@@ -18,6 +18,7 @@ export const Checkbox = ({
       label={label}
       onChange={handler}
       value={value}
+      checked={!!value}
       isInvalid={touched && !!error}
       feedback={error}
       feedbackTooltip

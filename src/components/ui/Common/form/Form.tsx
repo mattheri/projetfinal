@@ -8,11 +8,17 @@ import Col from "react-bootstrap/Col";
 import { FormRow } from "./FormRow";
 import { motion, MotionProps } from "framer-motion";
 
+type OtherChildren = {
+  row: number;
+  children: JSX.Element | JSX.Element[];
+};
+
 type FormProps = MotionProps & {
   formInputs: IForm[];
   initialValues?: { [key: string]: string };
   submitButtonValue?: string;
   onSubmit: (...args: any) => void;
+  child?: OtherChildren | OtherChildren[];
 };
 
 export const Formulaire = ({
@@ -20,16 +26,23 @@ export const Formulaire = ({
   initialValues,
   submitButtonValue = "Submit",
   onSubmit,
+  child,
+  children,
   ...motionProps
-}: FormProps) => {
+}: React.PropsWithChildren<FormProps>) => {
+  // const [values, setValues] = React.useState(
+  //   Object.fromEntries(formInputs.map((inputs) => [inputs.id, ""]))
+  // );
   // Use the initialValues prop or
   // build an object using the id of the input as the key and
   // initialize it as an empty string
-  const values =
-    initialValues ||
-    Object.fromEntries(formInputs.map((inputs) => [inputs.id, ""]));
+  // const values =
+  //   initialValues ||
+  //   Object.fromEntries(formInputs.map((inputs) => [inputs.id, ""]));
 
-  const validate = (value: typeof values) => {
+  const arrayChild = Array.isArray(child) ? child : [child];
+
+  const validate = (value: any) => {
     let errors: { [x: string]: string | undefined } = {};
     // For each validate function in the formInputs prop
     formInputs.forEach((input) => {
@@ -39,7 +52,8 @@ export const Formulaire = ({
       // into the errors object
       errors = {
         ...errors,
-        [`${input.id}`]: input.validate && input.validate(value[`${input.id}`]),
+        [`${input.id}`]:
+          input.validate && input.validate(value[`${input.id}`] || ""),
       };
     });
 
@@ -55,7 +69,9 @@ export const Formulaire = ({
   };
 
   const formik = useFormik({
-    initialValues: values,
+    initialValues: Object.fromEntries(
+      formInputs.map((inputs) => [inputs.id, ""])
+    ),
     onSubmit: (values, { resetForm }) => {
       onSubmit(values);
       resetForm({ values: undefined });
@@ -63,6 +79,20 @@ export const Formulaire = ({
     validateOnChange: true,
     validate: validate,
   });
+
+  const _id = React.useMemo(() => initialValues && initialValues["id"], [
+    initialValues && initialValues["id"],
+  ]);
+
+  React.useEffect(() => {
+    if (initialValues) {
+      formik.setValues(initialValues);
+    } else {
+      formik.setValues(
+        Object.fromEntries(formInputs.map((inputs) => [inputs.id, ""]))
+      );
+    }
+  }, [_id]);
 
   const handleButtonValidation = () => {
     // Check whether the number of required fields that has a value is higher
@@ -91,7 +121,7 @@ export const Formulaire = ({
 
   // Push the Inputs to an array
   const Inputs = formInputs.map((inputs) => (
-    <Form.Group as={Col}>
+    <Form.Group {...inputs.span} key={inputs.id} as={Col}>
       <Input
         key={inputs.id}
         label={inputs.label}
@@ -105,45 +135,76 @@ export const Formulaire = ({
         touched={formik.touched[`${inputs.id}`]}
         row={inputs.row}
         options={inputs.options}
-        {...inputs.span}
       />
     </Form.Group>
   ));
 
-  const FormRows = formInputs.map((input, index) => {
+  const FormRows: (
+    | JSX.Element
+    | React.ExoticComponent<{
+        children?: React.ReactNode;
+      }>
+  )[] = [];
+  const length = arrayChild.length
+    ? arrayChild.length + formInputs.length
+    : formInputs.length;
+
+  for (let index = 0; index < length; index++) {
     // If we are at least at index 0, initialize the row to the input row
     // Otherwise, initialize it to 0
-    let row: number = (formInputs[index - 1] && formInputs[index - 1].row) || 0;
+    let row: number =
+      (formInputs[index - 1] && formInputs[index - 1].row) || index;
     // Initialize an array that will contain the inputs
     let children: JSX.Element[] = [];
-    // If the current value in the row variable isn't the same as the value in input.row
-    if (row !== input.row) {
-      // Push all Inputs in the children array that are of the same value as input.row
-      Inputs.forEach((inputs) => {
-        inputs.props.children.props.row === input.row && children.push(inputs);
+    if (child) {
+      arrayChild.forEach((c) => {
+        if (c?.row) {
+          if (c.row === index) {
+            Array.isArray(c?.children)
+              ? c?.children.forEach(
+                  (child) => !children.includes(child) && children.push(child)
+                )
+              : c?.children &&
+                !children.includes(c?.children) &&
+                children.push(c.children as JSX.Element);
+          }
+        }
       });
+    }
+    if (formInputs[index]) {
+      // If the current value in the row variable isn't the same as the value in input.row
+      if (row !== formInputs[index].row) {
+        // Push all Inputs in the children array that are of the same value as input.row
+        Inputs.forEach((inputs) => {
+          inputs.props.children.props.row === formInputs[index].row &&
+            children.push(inputs);
+        });
+      }
       // Add them to the children props of the FormRow element
       // The FormRow element is only a wrapper for a Form.Row with a children props
-      const f = FormRow({ children: children });
-      // Empty the children array
-      children = [];
-      return f;
+      if (children.length) {
+        const f = FormRow({ children: children });
+        // Empty the children array
+        children = [];
+        FormRows.push(f);
+      }
+      // A fragment is removed at render time but is still a valid element
+      // It is there basically so that React renders nothing but doesn't complain either.
+      FormRows.push(React.Fragment);
     }
-    // A fragment is removed at render time but is still a valid element
-    // It is there basically so that React renders nothing but doesn't complain either.
-    return React.Fragment;
-  });
-
-  console.log(formik.values);
+  }
 
   return (
     <motion.form {...motionProps} onSubmit={formik.handleSubmit}>
       {FormRows.map((inputs) => inputs)}
-      <Col>
-        <Button type="submit" disabled={handleButtonValidation()}>
-          {submitButtonValue}
-        </Button>
-      </Col>
+      <Form.Row>{children}</Form.Row>
+      <Form.Row>
+        <Form.Group sm={12} as={Col}>
+          <Button type="submit" disabled={handleButtonValidation()}>
+            {submitButtonValue}
+          </Button>
+        </Form.Group>
+      </Form.Row>
     </motion.form>
   );
 };

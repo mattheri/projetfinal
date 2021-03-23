@@ -1,0 +1,37 @@
+@use '../../../../../../scss/variables' as var;
+
+.datepicker {
+  width: fit-content;
+  height: fit-content;
+  border: 1px solid var.$lightgray;
+  position: absolute;
+  background-color: white;
+  z-index: 9999;
+  right: 0;
+  animation: onAppear 250ms alternate;
+
+  &-controls {
+    display: flex;
+    padding: 0.5rem 0.2rem;
+    justify-content: space-between;
+    align-items: center;
+
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  thead {
+    th {
+      text-align: center;
+    }
+  }
+
+  @keyframes onAppear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

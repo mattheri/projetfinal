@@ -6,5 +6,5 @@ type FormRowProps = {
 };
 
 export const FormRow = ({ children }: FormRowProps) => (
-  <Form.Row>{children}</Form.Row>
+  <Form.Row className="align-items-center">{children}</Form.Row>
 );

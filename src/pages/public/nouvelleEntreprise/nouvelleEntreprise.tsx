@@ -109,6 +109,7 @@ export const NouvelleEntreprise = () => {
         label: sector.nom,
         span: {
           sm: 12,
+          md: 4,
         },
       };
       return sectorCheckBox;

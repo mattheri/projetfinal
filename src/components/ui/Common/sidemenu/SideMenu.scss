@@ -1,0 +1,50 @@
+@use '../../../../scss/mixins';
+@use '../../../../scss/variables' as var;
+
+.side-menu {
+  min-height: 100%;
+  position: absolute;
+  width: 100vw;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  transform: translateX(-100%);
+  transition: transform 500ms;
+  @include mixins.mqMd {
+    width: 50vw;
+  }
+
+  &.show {
+    transform: translateX(0);
+
+    &::after {
+      content: "";
+      width: 300vw;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: var.$black50;
+      position: absolute;
+      z-index: -1;
+      backdrop-filter: blur(5px);
+      animation: show 500ms alternate;
+    }
+
+    @keyframes show {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  &-inner {
+    width: 100%;
+    min-height: calc(100vh + 15px);
+    background-color: white;
+    z-index: 1;
+    top: 0px;
+  }
+}

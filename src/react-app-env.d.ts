@@ -86,6 +86,7 @@ export interface DemandeStage {
 }
 
 export interface OffreStage {
+  [key: string];
   _id: string;
   titre: string;
   entreprise: string;
@@ -106,12 +107,12 @@ export interface OffreStage {
 
 export interface Message {
   _id: string;
-  input: string;
-  output: string;
+  from: string;
+  to: string;
   message: string;
   date: Date;
   active: boolean;
-  readInput: boolean;
+  read: boolean;
 }
 
 export type OptionValue = {
@@ -158,4 +159,17 @@ export type IForm =
       row: number;
       validate?: (value: string) => string | undefined;
       options: OptionValue[];
+    }
+  | {
+      type: "datepicker";
+      id: string;
+      placeholder: string;
+      label?: string;
+      required?: boolean;
+      span?: ColProps;
+      values?: IForm[] | null;
+      value?: string;
+      row: number;
+      validate?: (value: string) => string | undefined;
+      options?: OptionValue[];
     };

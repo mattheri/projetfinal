@@ -96,6 +96,7 @@ export const NouvelEtudiant = () => {
         label: formation.nom,
         span: {
           sm: 12,
+          md: 4,
         },
       };
       return formationCheckBox;

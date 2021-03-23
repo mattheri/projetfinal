@@ -1,7 +1,8 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { appState } from "../../state/app";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { Navigation } from "../../components/Navbar/Navigation";
 
 export const Admin = () => {
   const App = useRecoilValue(appState);
@@ -13,7 +14,8 @@ export const Admin = () => {
 
   return (
     <>
-      <h1>You are an admin</h1>
+      <Navigation />
+      <Outlet />
     </>
   );
 };

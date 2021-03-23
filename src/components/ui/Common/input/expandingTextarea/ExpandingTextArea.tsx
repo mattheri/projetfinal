@@ -6,7 +6,6 @@ import "./ExpandingTextarea.scss";
 export const ExpandingTextArea = ({
   id,
   type,
-  label,
   handler,
   onBlur,
   touched,
