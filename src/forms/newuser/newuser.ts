@@ -1,4 +1,4 @@
-import { IForm } from "../../react-app-env";
+import { IForm } from "react-app-env";
 
 export const newuser: IForm[] = [
   {

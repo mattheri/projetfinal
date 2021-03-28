@@ -96,12 +96,8 @@ export const CardsCta = ({
                     >
                       <SmallCard
                         title={`${stagiaire.prenom} ${stagiaire.nom}`}
-                        subtitle={stagiaire.competences
-                          .map((competence) => competence)
-                          .join(" ")}
-                        body={stagiaire.formations
-                          .map((formation) => formation)
-                          .join(" ")}
+                        subtitle={stagiaire.competences.join(" ")}
+                        body={stagiaire.formations.join(" ")}
                         footer={
                           <>
                             <RouterLink

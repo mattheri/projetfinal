@@ -8,6 +8,11 @@ type HeaderProps = {
   full?: boolean;
 };
 
+/**
+ * Header element. If the location is "/", take up the whole screen.
+ * Otherwise, takes only half.
+ * @param full boolean. Should it take up the whole screen or not.
+ */
 export const Header = ({ full }: HeaderProps) => {
   const [height, setHeight] = React.useState(0);
   const headerRef = React.useRef<HTMLElement>(null);

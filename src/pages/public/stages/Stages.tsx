@@ -3,17 +3,17 @@ import React from "react";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import { LongCard } from "../../../components/ui/Common/card/LongCard/LongCard";
-import { Error } from "../../../components/ui/Common/error/Error";
-import { List } from "../../../components/ui/Common/list/List";
-import { Loading } from "../../../components/ui/Common/loading/Loading";
-import { SquareButton } from "../../../components/ui/Common/squarebutton/SquareButton";
-import { BannerCTA } from "../../../components/ui/Public/cta/BannerCTA/BannerCTA";
-import { CardsCta } from "../../../components/ui/Public/cta/CardsCta/CardsCta";
-import { Sidebar } from "../../../components/ui/Public/sidebar/Sidebar";
-import { useFilter } from "../../../hooks/useFilter";
-import { useInfiniteQueryOnObserverPosition } from "../../../hooks/useInfiniteQueryOnObserverPosition";
-import { OffreStage } from "../../../react-app-env";
+import { LongCard } from "components/ui/Common/card/LongCard/LongCard";
+import { Error } from "components/ui/Common/error/Error";
+import { List } from "components/ui/Common/list/List";
+import { Loading } from "components/ui/Common/loading/Loading";
+import { SquareButton } from "components/ui/Common/squarebutton/SquareButton";
+import { BannerCTA } from "components/ui/Public/cta/BannerCTA/BannerCTA";
+import { CardsCta } from "components/ui/Public/cta/CardsCta/CardsCta";
+import { Sidebar } from "components/ui/Public/sidebar/Sidebar";
+import { useFilter } from "hooks/useFilter";
+import { useInfiniteQueryOnObserverPosition } from "hooks/useInfiniteQueryOnObserverPosition";
+import { OffreStage } from "react-app-env";
 
 export const Stages = () => {
   const ref = React.useRef<HTMLDivElement>(null);
@@ -92,7 +92,7 @@ export const Stages = () => {
           Publier une offre de stage maintenant
         </SquareButton>
       </BannerCTA>
-      <CardsCta resource={process.env.REACT_APP_INTERNSHIP_OFFER} />
+      <CardsCta resource={process.env.REACT_APP_STUDENTS} />
     </main>
   );
 };

@@ -7,6 +7,8 @@ import { Input } from "../input/Input";
 import Col from "react-bootstrap/Col";
 import { FormRow } from "./FormRow";
 import { motion, MotionProps } from "framer-motion";
+import { validate } from "./validate";
+import { buttonValidation } from "./buttonValidation";
 
 type OtherChildren = {
   row: number;
@@ -19,6 +21,7 @@ type FormProps = MotionProps & {
   submitButtonValue?: string;
   onSubmit: (...args: any) => void;
   child?: OtherChildren | OtherChildren[];
+  resetFormFields?: boolean;
 };
 
 export const Formulaire = ({
@@ -28,45 +31,12 @@ export const Formulaire = ({
   onSubmit,
   child,
   children,
+  resetFormFields,
   ...motionProps
 }: React.PropsWithChildren<FormProps>) => {
-  // const [values, setValues] = React.useState(
-  //   Object.fromEntries(formInputs.map((inputs) => [inputs.id, ""]))
-  // );
-  // Use the initialValues prop or
-  // build an object using the id of the input as the key and
-  // initialize it as an empty string
-  // const values =
-  //   initialValues ||
-  //   Object.fromEntries(formInputs.map((inputs) => [inputs.id, ""]));
-
   const arrayChild = Array.isArray(child) ? child : [child];
 
-  const validate = (value: any) => {
-    let errors: { [x: string]: string | undefined } = {};
-    // For each validate function in the formInputs prop
-    formInputs.forEach((input) => {
-      // Run the function by passing the formik.values arg
-      // using the input.id as the key.
-      // Merge the returning value from the validate function
-      // into the errors object
-      errors = {
-        ...errors,
-        [`${input.id}`]:
-          input.validate && input.validate(value[`${input.id}`] || ""),
-      };
-    });
-
-    // If the value of the error is falsy, remove it
-    for (let key in errors) {
-      if (!errors[key]) {
-        delete errors[key];
-      }
-    }
-
-    // Return the errors object
-    return errors;
-  };
+  const validateValues = validate(formInputs);
 
   const formik = useFormik({
     initialValues: Object.fromEntries(
@@ -74,10 +44,10 @@ export const Formulaire = ({
     ),
     onSubmit: (values, { resetForm }) => {
       onSubmit(values);
-      resetForm({ values: undefined });
+      if (resetFormFields) resetForm({ values: undefined });
     },
     validateOnChange: true,
-    validate: validate,
+    validate: validateValues,
   });
 
   const _id = React.useMemo(() => initialValues && initialValues["id"], [
@@ -94,30 +64,7 @@ export const Formulaire = ({
     }
   }, [_id]);
 
-  const handleButtonValidation = () => {
-    // Check whether the number of required fields that has a value is higher
-    // than the number of required fields
-    const requireds =
-      formInputs.filter((inputs) => {
-        if (inputs.required) {
-          return formik.values[`${inputs.id}`]?.length > 0;
-        }
-
-        return null;
-      }).length < formInputs.filter((inputs) => inputs.required).length;
-
-    // Checks if the formik.errors object has any errors and returns a boolean
-    const errors = !!Object.entries(formik.errors).filter(
-      ([key, value]) => value && value.length > 0
-    ).length;
-
-    // If either of the above statements are true, return true
-    if (requireds || errors) {
-      return true;
-    }
-    // Otherwise, return false
-    return false;
-  };
+  const handleButtonValidation = buttonValidation(formInputs, formik);
 
   // Push the Inputs to an array
   const Inputs = formInputs.map((inputs) => (
@@ -145,9 +92,13 @@ export const Formulaire = ({
         children?: React.ReactNode;
       }>
   )[] = [];
+
   const length = arrayChild.length
     ? arrayChild.length + formInputs.length
     : formInputs.length;
+  /**
+   * TODO I should be able to create a form of any length dynamically.
+   */
 
   for (let index = 0; index < length; index++) {
     // If we are at least at index 0, initialize the row to the input row

@@ -8,7 +8,7 @@ export const Admin = () => {
   const App = useRecoilValue(appState);
   const navigate = useNavigate();
 
-  if (App.user?.role !== "admin") {
+  if (!App.connected) {
     navigate("/");
   }
 

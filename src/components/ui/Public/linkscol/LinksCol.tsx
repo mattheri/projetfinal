@@ -9,26 +9,18 @@ import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 import { Formation } from "../../../../react-app-env";
 import { filter } from "../../../../state/filterState";
+import { queryFn } from "../../../../utils/queryFn";
 import { Error } from "../../Common/error/Error";
 import { Loading } from "../../Common/loading/Loading";
 import { RouterLink } from "../../Common/routerlink/RouterLink";
 
 export const LinksCol = () => {
   const [filterState, setFilterState] = useRecoilState(filter("formation"));
-  const queryFn = async () => {
-    try {
-      const response = await (
-        await axios.get(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_FORMATION}`
-        )
-      ).data;
-      return response;
-    } catch (err) {
-      console.warn(err);
-      return err;
-    }
-  };
-  const { data, isLoading, isError } = useQuery("formation", queryFn);
+  const query = queryFn(
+    "get",
+    `${process.env.REACT_APP_API}${process.env.REACT_APP_FORMATION}`
+  );
+  const { data, isLoading, isError } = useQuery("formation", query);
 
   React.useEffect(() => {
     console.log(filterState);

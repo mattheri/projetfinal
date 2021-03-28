@@ -84,6 +84,7 @@ export const MessageModal = ({
           formInputs={message}
           onSubmit={handleSubmit}
           submitButtonValue="Envoyer"
+          resetFormFields
         />
       </Modal.Body>
     </Modal>

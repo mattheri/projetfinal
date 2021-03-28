@@ -38,8 +38,8 @@ export interface Enterprise {
   ville: string;
   siteWeb: string;
   logo: string;
-  descriptions: string;
-  secteurActivites: string[];
+  description: string;
+  secteurActivite: string[];
 }
 
 export interface Region {

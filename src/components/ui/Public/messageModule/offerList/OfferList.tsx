@@ -52,7 +52,7 @@ export const OfferList = () => {
     if (data && (data as any[]).length === 0) {
       setIsLoading(false);
     }
-  }, [offers, data]);
+  }, [data]);
   return (
     <>
       {isLoading && <Loading />}

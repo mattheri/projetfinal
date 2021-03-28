@@ -9,6 +9,9 @@ import { RouterLink } from "../ui/Common/routerlink/RouterLink";
 import { LinksCol } from "../ui/Public/linkscol/LinksCol";
 import "./Footer.scss";
 
+/**
+ * Footer element. Has a 4 x 4 columns of links that filter stagiaires by formation. Also, a bottom navigation.
+ */
 export const Footer = () => {
   return (
     <motion.div layout>
