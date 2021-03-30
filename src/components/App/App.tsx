@@ -19,6 +19,7 @@ import { NouvelleOffre } from "pages/admin/entreprise/nouvelleOffre/NouvelleOffr
 import { MesOffres } from "pages/admin/entreprise/mesOffres/MesOffres";
 import { EntrepriseProfile } from "pages/admin/profil/entreprise/EntrepriseProfil";
 import { EtudiantProfile } from "pages/admin/profil/etudiant/EtudiantProfile";
+import { Stage } from "pages/public/stage/Stage";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Public />}>
           <Route path="/" element={<Index />} />
+          <Route path="stage/:id" element={<Stage />} />
           <Route path="stages" element={<Stages />} />
           <Route path="stagiaires" element={<Stagiaires />} />
           <Route path="connexion" element={<Connexion />} />

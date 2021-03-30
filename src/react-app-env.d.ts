@@ -125,6 +125,7 @@ export type IForm =
       type: string;
       id: string;
       label: string;
+      title?: string;
       placeholder?: string;
       required?: boolean;
       span?: ColProps;
@@ -138,6 +139,7 @@ export type IForm =
       type: "textarea";
       id: string;
       placeholder: string;
+      title?: string;
       label?: string;
       required?: boolean;
       span?: ColProps;
@@ -152,6 +154,7 @@ export type IForm =
       id: string;
       placeholder?: string;
       label: string;
+      title?: string;
       required?: boolean;
       span?: ColProps;
       values?: IForm[] | null;
@@ -164,6 +167,7 @@ export type IForm =
       type: "datepicker";
       id: string;
       placeholder: string;
+      title?: string;
       label?: string;
       required?: boolean;
       span?: ColProps;

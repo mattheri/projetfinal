@@ -23,6 +23,10 @@ export const getActivites = (row: number) => {
           md: 4,
         },
       };
+
+      if (index === 0) {
+        secteurCheckBox.title = "Secteurs d'activité";
+      }
       return secteurCheckBox;
     });
   };

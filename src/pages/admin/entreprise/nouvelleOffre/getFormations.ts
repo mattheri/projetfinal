@@ -23,6 +23,9 @@ export const getFormations = (row: number) => {
           md: 4,
         },
       };
+      if (index === 0) {
+        formationCheckBox.title = "Formations requises";
+      }
       return formationCheckBox;
     });
   };

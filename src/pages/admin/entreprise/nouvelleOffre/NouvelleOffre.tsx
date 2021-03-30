@@ -25,18 +25,14 @@ export const NouvelleOffre = () => {
     setForm((form) => form.concat(sectors));
   };
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     if (!form.some((inputObj) => inputObj.id === "NodeJS")) {
-      handleConcatToFormAsync(getFormations(row));
-      setLength(form.length);
+      (async () => {
+        await handleConcatToFormAsync(getFormations(form.length));
+        await handleConcatToFormAsync(getActivites(form.length + 12));
+      })();
     }
   }, []);
-
-  React.useLayoutEffect(() => {
-    if (!form.some((inputObj) => inputObj.id === "SaaS") && length) {
-      handleConcatToFormAsync(getActivites(length));
-    }
-  }, [length]);
 
   const competence = {
     id: "competence",
@@ -65,24 +61,6 @@ export const NouvelleOffre = () => {
         <Formulaire
           formInputs={form}
           onSubmit={handleSubmit}
-          child={[
-            {
-              row: row,
-              children: (
-                <Col xs={12}>
-                  <h4 className="my-3">Formations requises</h4>
-                </Col>
-              ),
-            },
-            {
-              row: form.length,
-              children: (
-                <Col xs={12}>
-                  <h4 className="my-3">Secteur d'activités</h4>
-                </Col>
-              ),
-            },
-          ]}
           submitButtonValue="Créer l'offre"
         >
           <FormFieldAdder
