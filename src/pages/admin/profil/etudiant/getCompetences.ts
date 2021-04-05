@@ -1,8 +1,8 @@
-import { IForm, OffreStage } from "react-app-env";
+import { IForm, OffreStage, Student } from "react-app-env";
 
-export const getCompetences = (selected: OffreStage, form: IForm[]) => {
+export const getCompetences = (student: Student, form: IForm[]) => {
   return async () =>
-    selected.competences.map((competence, index) => {
+    student.competences.map((competence, index) => {
       return {
         id: `competence${form.length + index}`,
         type: "text",
@@ -11,7 +11,7 @@ export const getCompetences = (selected: OffreStage, form: IForm[]) => {
         span: {
           sm: 12,
         },
-        row: form.length,
+        row: 20,
         values: null,
         value: "",
         validate: function (value: string) {

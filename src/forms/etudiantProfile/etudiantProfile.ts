@@ -2,6 +2,23 @@ import { IForm } from "react-app-env";
 
 export const newstudent: IForm[] = [
   {
+    id: "courriel",
+    type: "email",
+    label: "Courriel",
+    required: true,
+    span: {
+      sm: 12,
+    },
+    row: 1,
+    validate: (value: string) => {
+      if (!value.length) {
+        return "L'adresse courriel est obligatoire";
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+        return "Entrez une adresse courriel valide";
+      }
+    },
+  },
+  {
     id: "prenom",
     type: "text",
     label: "Prénom",
@@ -10,7 +27,7 @@ export const newstudent: IForm[] = [
       sm: 12,
       md: 6,
     },
-    row: 1,
+    row: 2,
     validate: (value: string) => {
       if (!value.length) {
         return "Ce champs est obligatoire.";
@@ -26,7 +43,7 @@ export const newstudent: IForm[] = [
       sm: 12,
       md: 6,
     },
-    row: 1,
+    row: 2,
     validate: (value: string) => {
       if (!value.length) {
         return "Ce champs est obligatoire.";
@@ -41,7 +58,7 @@ export const newstudent: IForm[] = [
     span: {
       sm: 12,
     },
-    row: 2,
+    row: 3,
   },
   {
     id: "ville",
@@ -53,7 +70,7 @@ export const newstudent: IForm[] = [
       md: 6,
       lg: 4,
     },
-    row: 3,
+    row: 4,
     validate: (value: string) => {
       if (!value.length) {
         return "Ce champs est obligatoire.";
@@ -70,7 +87,7 @@ export const newstudent: IForm[] = [
       md: 6,
       lg: 4,
     },
-    row: 3,
+    row: 4,
     validate: (value: string) => {
       if (!value.length) {
         return "L'adresse est obligatoire.";
@@ -88,7 +105,7 @@ export const newstudent: IForm[] = [
       sm: 12,
       lg: 4,
     },
-    row: 3,
+    row: 4,
     validate: (value: string) => {
       if (!value.length) {
         return "Ce champs est obligatoire.";

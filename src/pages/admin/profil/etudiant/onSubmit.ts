@@ -2,41 +2,51 @@ import axios from "axios";
 
 export const onSubmit = (
   onSuccess: () => void,
-  entityId: string | undefined
+  entityId: string | undefined,
+  id: string | undefined
 ) => {
   return async (values: { [key: string]: string }) => {
     try {
-      const secteurs = Object.entries(values).map(([key, value]) => {
-        if (key.includes("secteur") && !!value) {
-          return key.replace("secteur", "");
-        }
-      });
+      const formations = Object.entries(values)
+        .map(([key, value]) => {
+          if (key.includes("formation") && !!value) {
+            return key.replace("formation", "");
+          }
+        })
+        .filter(Boolean);
+      const competences = Object.entries(values)
+        .map(([key, value]) => {
+          if (key.includes("competence")) {
+            return value;
+          }
+        })
+        .filter(Boolean);
 
-      const enterprise = {
+      const student = {
         nom: values.nom,
-        nomPersonneContact: values.nomPersonneContact,
-        prenomPersonneContact: values.prenomPersonneContact,
-        courrielPersonneContact: values.courrielPersonneContact,
+        prenom: values.prenom,
         telephone: values.telephone,
-        adresse: values.adresse,
         ville: values.ville,
         codePostal: values.codePostal,
-        siteWeb: values.siteWeb,
-        logo: values.logo,
-        description: values.description,
-        secteurActivite: secteurs,
+        cv: values.cv,
+        formations: formations,
+        competences: competences,
         actif: true,
         verifie: true,
       };
 
-      const response = await axios.put(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_ENTERPRISES}/${entityId}`,
-        enterprise
-      );
+      const user = {
+        courriel: values.courriel,
+      };
 
-      if (response.status === 200) {
-        onSuccess();
-      }
+      await axios.put(
+        `${process.env.REACT_APP_API}${process.env.REACT_APP_STUDENTS}/${entityId}`,
+        student
+      );
+      await axios.put(
+        `${process.env.REACT_APP_API}${process.env.REACT_APP_USERS}/${id}`,
+        user
+      );
     } catch (err) {
       console.warn(err);
     }

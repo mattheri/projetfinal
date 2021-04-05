@@ -6,7 +6,7 @@ export const getFormations = async () => {
     "get",
     `${process.env.REACT_APP_API}${process.env.REACT_APP_FORMATION}`
   )();
-  let row = 16;
+  let row = 4;
 
   return formation.map((formation, index) => {
     // For each formation retrieved, create a form object
@@ -24,7 +24,7 @@ export const getFormations = async () => {
       },
     };
     if (index === 0) {
-      formationCheckBox.title = "Formation requise";
+      formationCheckBox.title = "Formation acquise ou en cours d'acquisition";
     }
     return formationCheckBox;
   });

@@ -4,12 +4,13 @@ import { Loading } from "components/ui/Common/loading/Loading";
 import { newstudent } from "forms/etudiantProfile/etudiantProfile";
 import { useAuth } from "hooks/useAuth";
 import React from "react";
-import { Enterprise, IForm } from "react-app-env";
+import { IForm, Student } from "react-app-env";
 import Container from "react-bootstrap/Container";
 import { useQuery } from "react-query";
 import { queryFn } from "utils/queryFn";
 import { v4 as uuidv4 } from "uuid";
-import { getActivities } from "./getActivities";
+import { getCompetences } from "./getCompetences";
+import { getFormations } from "./getFormations";
 import { onSubmit } from "./onSubmit";
 
 const queryKey = uuidv4();
@@ -25,15 +26,27 @@ export const EtudiantProfile = () => {
     queryKey,
     query
   );
-  console.log(data);
 
   const handleSuccessSubmit = () => {
     refetch();
   };
-  const handleSubmit = onSubmit(handleSuccessSubmit, currentUser?.entiteId);
+  const handleSubmit = onSubmit(
+    handleSuccessSubmit,
+    currentUser?.entiteId,
+    currentUser?._id
+  );
   const handleInitialValues = () => {
+    const userData = { ...data, courriel: currentUser?.courriel };
     return Object.fromEntries([
-      ...newstudent.map((input) => [input.id, data[input.id]]),
+      ...newstudent.map((input) => [input.id, userData[input.id]]),
+      ...(data as Student).formations.map((formation) => [
+        "formation" + formation,
+        true,
+      ]),
+      ...(data as Student).competences.map((competence, index) => [
+        `competence${form.length + index}`,
+        competence,
+      ]),
     ]);
   };
 
@@ -41,6 +54,14 @@ export const EtudiantProfile = () => {
     const formInputs = await values();
     setForm((form) => form.concat(formInputs));
   };
+
+  React.useEffect(() => {
+    if (data) {
+      const competences = getCompetences(data as Student, form);
+      handleConcatToFormAsync(competences);
+    }
+    handleConcatToFormAsync(getFormations);
+  }, [data]);
 
   const competence = {
     id: "competence",
