@@ -60,7 +60,7 @@ export const CardsCta = ({
                             <Button
                               onClick={() =>
                                 handleShow({
-                                  contactee: offre._id,
+                                  to: offre._id,
                                   name: offre.titre,
                                 })
                               }
@@ -110,7 +110,7 @@ export const CardsCta = ({
                             <Button
                               onClick={() =>
                                 handleShow({
-                                  contactee: stagiaire._id,
+                                  to: stagiaire._id,
                                   name: `${stagiaire.prenom} ${stagiaire.nom}`,
                                 })
                               }

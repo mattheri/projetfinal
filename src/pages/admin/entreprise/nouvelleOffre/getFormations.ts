@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SecteurActivite, IForm, Formation } from "react-app-env";
+import { IForm, Formation } from "react-app-env";
 
 export const getFormations = (row: number) => {
   return async () => {

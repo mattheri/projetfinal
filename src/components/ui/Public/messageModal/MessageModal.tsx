@@ -1,70 +1,24 @@
-import React from "react";
+import { useMessages } from "hooks/useMessages";
+import _chunk from "lodash/chunk";
 import { ModalProps } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
-import { Formulaire } from "../../Common/form/Form";
-import { message } from "../../../../forms/message/message";
-import axios from "axios";
 import { Message } from "../../../../react-app-env";
-import { useQuery } from "react-query";
-import _chunk from "lodash/chunk";
 import { Loading } from "../../Common/loading/Loading";
 import { MessageHub } from "../../Common/messagehub/MessageHub";
 
 export type MessageModalProps = ModalProps & {
-  contacter: string | undefined;
-  contactee: string;
+  from: string | undefined;
+  to: string;
   name: string;
 };
 
-type MessageProps = {
-  message: string;
-};
-
-type MessageObject = Omit<Message, "_id" | "date">;
-
 export const MessageModal = ({
-  contactee,
-  contacter,
+  to,
+  from,
   name,
   ...rest
 }: MessageModalProps) => {
-  const handleSubmit = async ({ message }: MessageProps) => {
-    try {
-      const msg: MessageObject = {
-        active: true,
-        message: message,
-        to: contactee,
-        from: contacter as string,
-        read: false,
-      };
-      const res = await axios.post(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}`,
-        msg
-      );
-      refetch();
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-
-  const queryFn = async () => {
-    try {
-      const response = await (
-        await axios.get(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}?from=${contacter}&to=${contactee}`
-        )
-      ).data;
-      return response;
-    } catch (e) {
-      console.warn(e);
-      return e;
-    }
-  };
-
-  const { data, isLoading, isError, refetch } = useQuery(
-    `${contacter}${contactee}`,
-    queryFn
-  );
+  const { Submit, data, isLoading } = useMessages(from, to);
 
   return (
     <Modal {...rest}>
@@ -79,14 +33,7 @@ export const MessageModal = ({
           />
         </Modal.Header>
       )}
-      <Modal.Body>
-        <Formulaire
-          formInputs={message}
-          onSubmit={handleSubmit}
-          submitButtonValue="Envoyer"
-          resetFormFields
-        />
-      </Modal.Body>
+      <Modal.Body>{Submit}</Modal.Body>
     </Modal>
   );
 };

@@ -4,8 +4,8 @@ export const onSubmit = (userId: string | undefined, onSuccess: () => void) => {
   return async (values: { [key: string]: string }) => {
     const secteurs = Object.entries(values)
       .map(([key, value]) => {
-        if (key.includes("sector")) {
-          return key.replace("sector", "");
+        if (key.includes("secteur")) {
+          return key.replace("secteur", "");
         }
       })
       .filter(Boolean);
@@ -13,6 +13,16 @@ export const onSubmit = (userId: string | undefined, onSuccess: () => void) => {
       .map(([key, value]) => {
         if (key.includes("competence")) {
           return value;
+        }
+      })
+      .filter(Boolean);
+    const formations = Object.entries(values)
+      .map(([key, value]) => {
+        if (
+          key.includes("formation") &&
+          !key.includes("informationsSupplementaires")
+        ) {
+          return key.replace("formation", "");
         }
       })
       .filter(Boolean);
@@ -37,6 +47,7 @@ export const onSubmit = (userId: string | undefined, onSuccess: () => void) => {
         competences: competences,
         salaire: values.salaire,
         duree: values.duree,
+        formationRequise: formations,
       };
       const response = await axios.post(
         `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}`,

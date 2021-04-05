@@ -19,6 +19,8 @@ import { queryFn } from "utils/queryFn";
 import { handleSubmit } from "./handleSubmit";
 import { getActivities } from "./getActivites";
 import { getCompetences } from "./getCompetences";
+import { getFormations } from "./getFormations";
+import { formatDate } from "./formatDate";
 
 const queryKey = uuidv4();
 
@@ -31,7 +33,7 @@ export const MesOffres = () => {
   const { currentUser } = useAuth();
   const query = queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}/entreprise/${currentUser?._id}`
+    `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}/entreprise/${currentUser?.entiteId}`
   );
 
   const { data, isLoading, isError, refetch } = useQuery(queryKey, query);
@@ -94,6 +96,7 @@ export const MesOffres = () => {
     if (selected) {
       const competences = getCompetences(selected, form);
       handleConcatToForm(competences);
+      console.log(selected);
     }
   }, [_selected]);
 
@@ -105,6 +108,7 @@ export const MesOffres = () => {
   React.useEffect(() => {
     setForm(newstage);
     handleConcatToForm(getActivities);
+    handleConcatToForm(getFormations);
   }, [_id]);
 
   const onSubmit = handleSubmit(selected, currentUser?._id, handleOnSuccess);
@@ -159,7 +163,10 @@ export const MesOffres = () => {
           initialValues={
             _selected &&
             Object.fromEntries([
-              ...newstage.map((input) => [input.id, _selected[input.id]]),
+              ...newstage.map((input) => [
+                input.id,
+                formatDate(input.id, _selected[input.id]),
+              ]),
               ["id", _selected._id],
               ..._selected.secteurActivite.map((secteur, index) => [
                 "secteur" + secteur,
@@ -168,6 +175,10 @@ export const MesOffres = () => {
               ..._selected.competences.map((competence, index) => [
                 `competence${form.length + index}`,
                 competence,
+              ]),
+              ..._selected.formationRequise.map((formation, index) => [
+                "formation" + formation,
+                true,
               ]),
             ])
           }

@@ -7,6 +7,9 @@
     color: var.$black;
     font-weight: 700;
     margin-bottom: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
   .small-text-text {
     color: var.$black80;
@@ -23,5 +26,12 @@
     border: none;
     background-color: white;
     padding: 0.5rem 0;
+  }
+
+  &.clickable {
+    cursor: pointer;
+    &:hover {
+      outline: 3px var.$blue solid;
+    }
   }
 }

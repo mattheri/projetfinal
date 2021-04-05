@@ -2,9 +2,9 @@
 @use '../../../../scss/variables' as var;
 
 .side-menu {
-  min-height: 100%;
   position: absolute;
   width: 100vw;
+  height: fit-content;
   z-index: 1049; // one less than bootstrap modal
   left: 0;
   top: 0;
@@ -17,17 +17,19 @@
   &.show {
     transform: translateX(0);
 
-    &::after {
-      content: "";
-      width: 300vw;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background-color: var.$black50;
-      position: absolute;
-      z-index: -1;
-      backdrop-filter: blur(5px);
-      animation: show 500ms alternate;
+    &.shade {
+      &::after {
+        content: "";
+        width: 300vw;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: var.$black50;
+        position: absolute;
+        z-index: -1;
+        backdrop-filter: blur(5px);
+        animation: show 500ms alternate;
+      }
     }
 
     @keyframes show {
@@ -42,7 +44,7 @@
 
   &-inner {
     width: 100%;
-    min-height: calc(100vh + 15px);
+    height: 100%;
     background-color: white;
     z-index: 1;
     top: 0px;

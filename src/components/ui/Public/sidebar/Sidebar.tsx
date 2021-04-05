@@ -29,7 +29,6 @@ export const Sidebar = ({ title, resource }: SidebarProps) => {
       const response = await (
         await axios.get(`${process.env.REACT_APP_API}${resource}`)
       ).data;
-      console.log(response);
       return response;
     } catch (err) {
       console.warn(err);

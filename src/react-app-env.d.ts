@@ -103,6 +103,7 @@ export interface OffreStage {
   dateParution: Date;
   informationsSupplementaires: string;
   vedette: boolean;
+  formationRequise: string[];
 }
 
 export interface Message {

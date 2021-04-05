@@ -21,6 +21,13 @@ export const handleSubmit = (
         }
       })
       .filter(Boolean);
+    const formations = Object.entries(values)
+      .map(([key, value]) => {
+        if (key.includes("formation")) {
+          return value.replace("formation", "");
+        }
+      })
+      .filter(Boolean);
 
     try {
       const body = {
@@ -42,6 +49,7 @@ export const handleSubmit = (
         competences: competences,
         salaire: values.salaire,
         duree: values.duree,
+        formationRequise: formations,
       };
       const response = await axios.put(
         `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}/${selected?._id}`,

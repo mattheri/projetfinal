@@ -62,7 +62,7 @@ export const Stagiaires = () => {
                             <Button
                               onClick={() =>
                                 handleShow({
-                                  contactee: etudiant._id,
+                                  to: etudiant._id,
                                   name: `${etudiant.prenom} ${etudiant.nom}`,
                                 })
                               }

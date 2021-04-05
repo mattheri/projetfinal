@@ -9,15 +9,12 @@ export const useModalMessages = () => {
   const [show, setShow] = React.useState(false);
   const { currentUser } = useAuth();
   const [resource, setResource] = React.useState<MessageModalProps>({
-    contactee: "",
-    contacter: currentUser?._id,
+    to: "",
+    from: currentUser?.entiteId,
     name: "",
   });
-  const handleShow = ({
-    contactee,
-    name,
-  }: Omit<MessageModalProps, "contacter">) => {
-    setResource({ contactee, contacter: currentUser?._id, name });
+  const handleShow = ({ to, name }: Omit<MessageModalProps, "from">) => {
+    setResource({ to, from: currentUser?.entiteId, name });
     setShow(true);
   };
   const handleClose = () => {

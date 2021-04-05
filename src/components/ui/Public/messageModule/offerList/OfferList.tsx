@@ -1,76 +1,135 @@
-import axios from "axios";
-import React from "react";
-import ListGroup from "react-bootstrap/ListGroup";
-import { useRecoilState } from "recoil";
-import { useAuth } from "../../../../../hooks/useAuth";
-import { useGetQuery } from "../../../../../hooks/useGetQuery";
-import { Message, OffreStage } from "../../../../../react-app-env";
-import { messageModuleState } from "../../../../../state/messageModuleState";
-import { Empty } from "../../../Common/empty/Empty";
-import { Loading } from "../../../Common/loading/Loading";
-import { SmallText } from "../../../Common/smalltext/SmallText";
+import { SmallCard } from "components/ui/Common/card/SmallCard/SmallCard";
+import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
+import { Message, OffreStage, Student, User } from "react-app-env";
+import Badge from "react-bootstrap/Badge";
+import Col from "react-bootstrap/Col";
+import { useQuery } from "react-query";
+import { queryFn } from "utils/queryFn";
 
-export const OfferList = () => {
-  const { currentUser } = useAuth();
-  const [
-    currentMessageModuleState,
-    setCurrentMessageModuleState,
-  ] = useRecoilState(messageModuleState(currentUser?._id as string));
-  const { data } = useGetQuery(
-    `${process.env.REACT_APP_INTERNSHIP_OFFER}/entreprise/${currentUser?._id}`
+type OfferListProps = {
+  user: User | null;
+};
+
+export const OfferList = ({ user }: OfferListProps) => {
+  const query = queryFn(
+    "get",
+    `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}/entreprise/${user?.entiteId}`
   );
-  const [offers, setOffers] = React.useState<OffreStage[]>([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const getOfferThatHaveMessages = async (id: string) => {
-    try {
-      const response: Message[] = await (
-        await axios.get(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}/${id}`
-        )
-      ).data;
-      console.log(response);
-      setCurrentMessageModuleState((state) =>
-        Object.assign({}, state, { messages: response })
-      );
-      return response;
-    } catch (err) {
-      console.warn(err);
-      return err;
-    }
+  const offres = useQuery([user?.entiteId], query, {
+    enabled: !!user?.entiteId,
+  });
+  const messageQuery = async (id: string) => {
+    return queryFn(
+      "get",
+      `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}/${id}`
+    )();
   };
-  const handleGetOffersWithMessages = async () => {
-    const offers: OffreStage[] = await Promise.all(
-      (data as OffreStage[]).map((offre) => getOfferThatHaveMessages(offre._id))
+  const messageQueryByOffers = async () => {
+    return Promise.all(
+      (offres.data as OffreStage[]).map((offre) => messageQuery(offre._id))
     );
-    setOffers(offers);
-    setIsLoading(false);
   };
-  React.useEffect(() => {
-    if (data && (data as any[]).length > 0) {
-      handleGetOffersWithMessages();
-    }
-    if (data && (data as any[]).length === 0) {
-      setIsLoading(false);
-    }
-  }, [data]);
+  const messages = useQuery([user?.entiteId, user?._id], messageQueryByOffers, {
+    enabled: !!offres.data,
+  });
+  const filterMessagesByOffer = (id: string): Message[] => {
+    const msg = messages.data as Message[][];
+
+    return msg.flatMap((msg) =>
+      msg.filter((msg) => {
+        if (msg.from === id || msg.to === id) {
+          return msg;
+        }
+      })
+    );
+  };
+  const messagesByEnterpriseId = async (): Promise<Message[]> => {
+    return messageQuery(user?.entiteId as string);
+  };
+  const enterpriseMessages = useQuery([user?._id], messagesByEnterpriseId, {
+    enabled: !!user?.entiteId,
+  });
+  const studentsWithMessages = async (): Promise<Student[]> => {
+    const studentsIds = (enterpriseMessages.data as Message[]).map((msg) => {
+      if (msg.from !== user?.entiteId) {
+        return msg.from;
+      }
+
+      if (msg.to !== user?.entiteId) {
+        return msg.to;
+      }
+    });
+
+    const uniqueStudentIds = [...new Set(studentsIds)];
+
+    console.log(uniqueStudentIds);
+
+    return Promise.all(
+      (uniqueStudentIds as string[]).map((studentId) =>
+        queryFn(
+          "get",
+          `${process.env.REACT_APP_API}${process.env.REACT_APP_STUDENTS}/${studentId}`
+        )()
+      )
+    );
+  };
+  const students = useQuery([user?._id, "students"], studentsWithMessages, {
+    enabled: !!enterpriseMessages.data,
+  });
+
   return (
     <>
-      {isLoading && <Loading />}
-      {!isLoading && offers.length === 0 && <Empty />}
-      {offers.length > 0 && (
-        <ListGroup>
-          {offers.map((offre) => {
-            return (
-              <ListGroup.Item>
-                <span>
-                  <SmallText>{offre.titre}</SmallText>
-                  <SmallText condensed>{offre.dateParution}</SmallText>
-                </span>
-              </ListGroup.Item>
-            );
-          })}
-        </ListGroup>
-      )}
+      {offres.data &&
+        (offres.data as OffreStage[]).map((offre) => (
+          <Col key={offre._id} lg={4} className="mb-4">
+            <SmallCard
+              title={offre.titre}
+              body={offre.description}
+              subtitle="Offre"
+              footer={
+                <>
+                  <RouterLink to={`stage/${offre._id}`}>
+                    Voir l'offre
+                  </RouterLink>
+                  <RouterLink to={`students/${offre._id}`} variant="link">
+                    Messages{" "}
+                    <Badge>
+                      {messages.data
+                        ? filterMessagesByOffer(offre._id).length
+                        : 0}
+                    </Badge>
+                  </RouterLink>
+                </>
+              }
+            />
+          </Col>
+        ))}
+      {students.data &&
+        students.data.map(
+          (student) =>
+            student && (
+              <Col key={student._id} lg={4}>
+                <SmallCard
+                  title={`${student.prenom} ${student.nom}`}
+                  body={student.formations.join(" ")}
+                  subtitle="Étudiant"
+                  footer={
+                    <>
+                      <RouterLink to={`stagiaire/${student._id}`}>
+                        Voir le profil
+                      </RouterLink>
+                      <RouterLink
+                        variant="link"
+                        to={`/messages/${student._id}/${user?.entiteId}`}
+                      >
+                        Messages
+                      </RouterLink>
+                    </>
+                  }
+                />
+              </Col>
+            )
+        )}
     </>
   );
 };

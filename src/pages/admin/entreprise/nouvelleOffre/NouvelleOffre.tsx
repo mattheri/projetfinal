@@ -19,7 +19,7 @@ export const NouvelleOffre = () => {
   const navigate = useNavigate();
 
   const handleSubmitSuccess = () => navigate("/admin/mesoffres");
-  const handleSubmit = onSubmit(currentUser?._id, handleSubmitSuccess);
+  const handleSubmit = onSubmit(currentUser?.entiteId, handleSubmitSuccess);
   const handleConcatToFormAsync = async (values: () => Promise<IForm[]>) => {
     const sectors = await values();
     setForm((form) => form.concat(sectors));

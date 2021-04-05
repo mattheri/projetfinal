@@ -7,6 +7,7 @@ type MessageModuleDefaultState = {
   enterpriseSelected?: Enterprise;
   offerSelected?: OffreStage;
   messages?: Message[];
+  selectedMessages?: Message[];
 };
 
 const defaults: MessageModuleDefaultState = {};

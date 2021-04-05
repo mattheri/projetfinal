@@ -16,13 +16,17 @@ export const SideMenu = React.forwardRef(
     ref: React.ForwardedRef<any>
   ) => {
     return (
-      <aside className={classnames("side-menu", { ["show"]: toggle })}>
+      <aside
+        className={classnames("side-menu", {
+          ["show"]: toggle,
+          ["shade"]: shade,
+        })}
+      >
         <div
           ref={ref}
           className={classnames(
             "side-menu-inner",
             "position-relative",
-            { ["shade"]: shade },
             className
           )}
         >

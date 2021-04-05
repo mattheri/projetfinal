@@ -38,8 +38,6 @@ export const Formulaire = ({
   resetFormFields,
   ...motionProps
 }: React.PropsWithChildren<FormProps>) => {
-  const arrayChild = Array.isArray(child) ? child : [child];
-
   const validateValues = validate(formInputs);
 
   const formik = useFormik({
@@ -70,7 +68,6 @@ export const Formulaire = ({
 
   const handleButtonValidation = buttonValidation(formInputs, formik);
 
-  // Push the Inputs to an array
   const Inputs = createInputsArray(formik, formInputs);
 
   const FormRows: (
@@ -79,10 +76,6 @@ export const Formulaire = ({
         children?: React.ReactNode;
       }>
   )[] = [];
-
-  const length = arrayChild.length
-    ? arrayChild.length + formInputs.length
-    : formInputs.length;
 
   let cursor = 0;
 

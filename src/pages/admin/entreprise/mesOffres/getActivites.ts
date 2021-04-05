@@ -23,6 +23,10 @@ export const getActivities = async () => {
         md: 4,
       },
     };
+
+    if (index === 0) {
+      sectorCheckBox.title = "Secteurs d'activité";
+    }
     return sectorCheckBox;
   });
 };
