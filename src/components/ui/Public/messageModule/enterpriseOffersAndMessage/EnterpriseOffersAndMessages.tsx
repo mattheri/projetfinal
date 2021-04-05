@@ -8,6 +8,8 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import { SmallCard } from "components/ui/Common/card/SmallCard/SmallCard";
 import Badge from "react-bootstrap/Badge";
+import { Empty } from "components/ui/Common/empty/Empty";
+import { Loading } from "components/ui/Common/loading/Loading";
 
 export const EnterpriseOffersAndMessages = () => {
   const params = useParams();
@@ -53,6 +55,8 @@ export const EnterpriseOffersAndMessages = () => {
 
   return (
     <>
+      {offers.data && offers.data.length === 0 && <Empty />}
+      {offers.isLoading && <Loading />}
       {offers.data &&
         (offers.data as OffreStage[]).map((offer) => (
           <Col lg={4} className="mb-4">

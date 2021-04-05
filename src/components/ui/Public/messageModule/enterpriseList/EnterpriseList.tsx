@@ -8,6 +8,7 @@ import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
 import { Button, Badge } from "react-bootstrap";
 import { useRecoilState } from "recoil";
 import { messageModuleState } from "state/messageModuleState";
+import { Loading } from "components/ui/Common/loading/Loading";
 
 type EnterpriseListProps = {
   entityId: string | undefined;
@@ -87,6 +88,7 @@ export const EnterpriseList = ({ entityId, id }: EnterpriseListProps) => {
 
   return (
     <>
+      {isLoading && <Loading />}
       {enterprises.length > 0 &&
         enterprises?.map((enterprise) => (
           <Col lg={4} className="mb-4">

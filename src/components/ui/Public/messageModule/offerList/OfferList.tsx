@@ -1,4 +1,5 @@
 import { SmallCard } from "components/ui/Common/card/SmallCard/SmallCard";
+import { Loading } from "components/ui/Common/loading/Loading";
 import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
 import { Message, OffreStage, Student, User } from "react-app-env";
 import Badge from "react-bootstrap/Badge";
@@ -79,6 +80,7 @@ export const OfferList = ({ user }: OfferListProps) => {
 
   return (
     <>
+      {offres.isLoading && <Loading />}
       {offres.data &&
         (offres.data as OffreStage[]).map((offre) => (
           <Col key={offre._id} lg={4} className="mb-4">
@@ -104,6 +106,7 @@ export const OfferList = ({ user }: OfferListProps) => {
             />
           </Col>
         ))}
+      {students.isLoading && <Loading />}
       {students.data &&
         students.data.map(
           (student) =>

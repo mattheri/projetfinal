@@ -1,4 +1,5 @@
 import { SmallCard } from "components/ui/Common/card/SmallCard/SmallCard";
+import { Loading } from "components/ui/Common/loading/Loading";
 import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
 import { useAuth } from "hooks/useAuth";
 import { Message, Student } from "react-app-env";
@@ -10,7 +11,6 @@ import { queryFn } from "utils/queryFn";
 export const StudentList = () => {
   const params = useParams();
   const { currentUser } = useAuth();
-  const navigate = useNavigate();
 
   const queryStudents = async (id: string) => {
     return queryFn(
@@ -62,6 +62,7 @@ export const StudentList = () => {
 
   return (
     <>
+      {students.isLoading && <Loading />}
       {students.data &&
         students.data.map((student) => (
           <Col key={student._id} lg={4}>

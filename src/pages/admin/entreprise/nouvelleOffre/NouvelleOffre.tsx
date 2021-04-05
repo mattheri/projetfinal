@@ -13,9 +13,7 @@ import { onSubmit } from "./onSubmit";
 
 export const NouvelleOffre = () => {
   const [form, setForm] = React.useState(newstage);
-  const [length, setLength] = React.useState(0);
   const { currentUser } = useAuth();
-  let row = 10;
   const navigate = useNavigate();
 
   const handleSubmitSuccess = () => navigate("/admin/mesoffres");

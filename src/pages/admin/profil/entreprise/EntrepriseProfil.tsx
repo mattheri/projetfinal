@@ -20,27 +20,24 @@ export const EntrepriseProfile = () => {
     "get",
     `${process.env.REACT_APP_API}${process.env.REACT_APP_ENTERPRISES}/${currentUser?.entiteId}`
   );
-  const { data, isLoading, isError, refetch } = useQuery(queryKey, query);
+  const { data, isLoading, isError, refetch, isFetched } = useQuery(
+    queryKey,
+    query
+  );
 
   const handleSuccessSubmit = () => {
     refetch();
-    setInitialValues(handleInitialValues());
   };
   const handleSubmit = onSubmit(handleSuccessSubmit, currentUser?.entiteId);
   const handleInitialValues = () => {
-    if (data) {
-      return Object.fromEntries([
-        ...entrepriseProfile.map((input) => [input.id, data[input.id]]),
-        ...(data as Enterprise).secteurActivite.map((secteur) => [
-          "secteur" + secteur,
-          true,
-        ]),
-      ]);
-    }
+    return Object.fromEntries([
+      ...entrepriseProfile.map((input) => [input.id, data[input.id]]),
+      ...(data as Enterprise).secteurActivite.map((secteur) => [
+        "secteur" + secteur,
+        true,
+      ]),
+    ]);
   };
-  const [initialValues, setInitialValues] = React.useState(
-    handleInitialValues()
-  );
 
   const handleConcatToFormAsync = async (values: () => Promise<IForm[]>) => {
     const sectors = await values();
@@ -57,12 +54,14 @@ export const EntrepriseProfile = () => {
     <main>
       <Container className="py-5">
         {isLoading && <Loading />}
-        <Formulaire
-          formInputs={form}
-          onSubmit={handleSubmit}
-          initialValues={initialValues}
-          submitButtonValue="Modifier"
-        />
+        {isFetched && (
+          <Formulaire
+            formInputs={form}
+            onSubmit={handleSubmit}
+            initialValues={handleInitialValues()}
+            submitButtonValue="Modifier"
+          />
+        )}
       </Container>
     </main>
   );
