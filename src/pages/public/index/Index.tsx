@@ -15,7 +15,7 @@ export const Index = () => {
         headline="Tu es à la recherche de ton stage de fin d'études?"
         subtitle="Pellentesque vehicula fermentum turpis eu cursus. Cras convallis tellus et elit aliquet, vitae dignissim ligula sodales."
       />
-      <CardsCta resource={process.env.REACT_APP_INTERNSHIP_OFFER} />
+      <CardsCta resource={"stage"} />
       <BannerCTA
         headline="Pourquoi publier une offre de stage?"
         subtitle="Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores explicabo consequatur rem, hic cum magni sit modi delectus saepe inventore, et ipsam, vero vitae praesentium impedit laudantium cumque velit doloribus!"
@@ -35,7 +35,7 @@ export const Index = () => {
         headline="Votre futur stagiare se trouve ici."
         subtitle="Pellentesque vehicula fermentum turpis eu cursus. Cras convallis tellus et elit aliquet, vitae dignissim ligula sodales."
       />
-      <CardsCta resource={process.env.REACT_APP_STUDENTS} />
+      <CardsCta resource={"etudiant"} />
       <BannerCTA
         imagePosition="right"
         headline="Pourquoi publier une offre de stage?"

@@ -22,7 +22,7 @@ export const Stagiaires = () => {
   const ref = React.useRef<HTMLDivElement>(null);
   const { data, isError, isLoading } = useInfiniteQueryOnObserverPosition(
     ref,
-    process.env.REACT_APP_STUDENTS
+    "etudiant"
   );
 
   const filter = (filter: string, data: Student[]) => {
@@ -36,7 +36,7 @@ export const Stagiaires = () => {
   };
 
   const { filteredData } = useFilter(
-    process.env.REACT_APP_FORMATION as string,
+    "formation" as string,
     filter,
     data?.pages.map((page) => page.data.map((p: any) => p)).flat() as Student[]
   );
@@ -86,10 +86,7 @@ export const Stagiaires = () => {
           )}
           {isLoading && <Loading />}
           <div ref={ref}></div>
-          <Sidebar
-            title="Formations"
-            resource={process.env.REACT_APP_FORMATION as string}
-          />
+          <Sidebar title="Formations" resource={"formation" as string} />
         </AnimateSharedLayout>
       </Container>
       {Modal}
@@ -108,7 +105,7 @@ export const Stagiaires = () => {
           Publier une offre de stage maintenant
         </SquareButton>
       </BannerCTA>
-      <CardsCta resource={process.env.REACT_APP_INTERNSHIP_OFFER} />
+      <CardsCta resource={"stage"} />
     </main>
   );
 };
