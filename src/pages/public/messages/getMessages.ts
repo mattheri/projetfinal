@@ -5,7 +5,7 @@ export const getMessagesPerStudentOrEnterpriseId = (id: string) => {
     try {
       const response = await (
         await axios.get(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}/${id}`
+          `https://lit-shelf-44437.herokuapp.com/api/message/${id}`
         )
       ).data;
       return response;

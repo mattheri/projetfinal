@@ -25,7 +25,10 @@ export const Sidebar = ({ title, resource }: SidebarProps) => {
   ).matches;
   const [show, setShow] = React.useState(matchesMediaBreakpoint);
   const [filterState, setFilterState] = useRecoilState(filter(resource));
-  const query = queryFn("get", `${process.env.REACT_APP_API}${resource}`);
+  const query = queryFn(
+    "get",
+    `https://lit-shelf-44437.herokuapp.com/api/${resource}`
+  );
 
   const { data, isLoading, isError } = useQuery(`${queryKey}`, {
     queryFn: query,

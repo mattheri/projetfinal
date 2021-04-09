@@ -12,7 +12,7 @@ export const useGetQuery = (
   const queryFn = async () => {
     try {
       const response = await (
-        await axios.get(`${process.env.REACT_APP_API}${resource}`)
+        await axios.get(`https://lit-shelf-44437.herokuapp.com/api/${resource}`)
       ).data;
       return response;
     } catch (err) {

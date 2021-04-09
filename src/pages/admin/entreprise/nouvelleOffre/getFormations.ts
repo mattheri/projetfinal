@@ -4,9 +4,7 @@ import { IForm, Formation } from "react-app-env";
 export const getFormations = (row: number) => {
   return async () => {
     const formations: Formation[] = await (
-      await axios.get(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_FORMATION}`
-      )
+      await axios.get(`https://lit-shelf-44437.herokuapp.com/api/formation`)
     ).data;
     return formations.map((formation, index) => {
       // For each formation retrieved, create a form object

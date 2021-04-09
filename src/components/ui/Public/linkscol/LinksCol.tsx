@@ -18,7 +18,7 @@ export const LinksCol = () => {
   const [filterState, setFilterState] = useRecoilState(filter("formation"));
   const query = queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_FORMATION}`
+    `https://lit-shelf-44437.herokuapp.com/api/formation`
   );
   const { data, isLoading, isError } = useQuery("formation", query);
 

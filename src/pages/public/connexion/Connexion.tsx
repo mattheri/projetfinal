@@ -29,7 +29,7 @@ export const Connexion = () => {
     try {
       const user: User = await (
         await axios.post(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_USERS}/login`,
+          `https://lit-shelf-44437.herokuapp.com/api/utilisateur/login`,
           { courriel: loginUsername, password: loginPassword }
         )
       ).data;

@@ -40,7 +40,7 @@ export const Inscription = () => {
     try {
       const user: User = await (
         await axios.post(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_USERS}/signup`,
+          `https://lit-shelf-44437.herokuapp.com/api/utilisateur/signup`,
           body
         )
       ).data;

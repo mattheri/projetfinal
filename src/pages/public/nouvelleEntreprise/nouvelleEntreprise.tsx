@@ -63,7 +63,7 @@ export const NouvelleEntreprise = () => {
       // Send the new enterprise object to the API and wait for the response
       const enterpriseResponse: Enterprise = await (
         await axios.post(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_ENTERPRISES}`,
+          `https://lit-shelf-44437.herokuapp.com/api/entreprise`,
           enterprise
         )
       ).data;
@@ -79,7 +79,7 @@ export const NouvelleEntreprise = () => {
       // Send in the completed user to the API
       const userResponse: User = await (
         await axios.put(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_USERS}/${currentUser?._id}`,
+          `https://lit-shelf-44437.herokuapp.com/api/utilisateur/${currentUser?._id}`,
           user
         )
       ).data;
@@ -92,9 +92,7 @@ export const NouvelleEntreprise = () => {
 
   const getSecteurs = async () => {
     const response: SecteurActivite[] = await (
-      await axios.get(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_ACTIVITY}`
-      )
+      await axios.get(`https://lit-shelf-44437.herokuapp.com/api/activite`)
     ).data;
     let row = 5;
     const secteurs = response.map((sector, index) => {

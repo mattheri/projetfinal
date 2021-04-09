@@ -30,7 +30,7 @@ export const onSubmit = (
       };
 
       const response = await axios.put(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_ENTERPRISES}/${entityId}`,
+        `https://lit-shelf-44437.herokuapp.com/api/entreprise/${entityId}`,
         enterprise
       );
 

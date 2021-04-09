@@ -5,12 +5,12 @@ export const getEnterpriseAndOffersByEnterprise = async (id: string) => {
   try {
     const enterprise: Enterprise = await (
       await axios.get(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_ENTERPRISES}/${id}`
+        `https://lit-shelf-44437.herokuapp.com/api/entreprise/${id}`
       )
     ).data;
     const offers: OffreStage[] = await (
       await axios.get(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}/${enterprise._id}`
+        `https://lit-shelf-44437.herokuapp.com/api/stage/${enterprise._id}`
       )
     ).data;
 

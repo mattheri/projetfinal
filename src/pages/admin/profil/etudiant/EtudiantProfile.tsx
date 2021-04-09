@@ -22,7 +22,7 @@ export const EtudiantProfile = () => {
   const { currentUser } = useAuth();
   const query = queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_STUDENTS}/${currentUser?.entiteId}`
+    `https://lit-shelf-44437.herokuapp.com/api/etudiant/${currentUser?.entiteId}`
   );
   const { data, isLoading, refetch, isFetched, status } = useQuery(
     queryKey,

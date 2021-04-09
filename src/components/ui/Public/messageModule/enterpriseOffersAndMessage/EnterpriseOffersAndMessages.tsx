@@ -17,7 +17,7 @@ export const EnterpriseOffersAndMessages = () => {
 
   const enterpriseOffersQuery = queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}/entreprise/${params.id}`
+    `https://lit-shelf-44437.herokuapp.com/api/stage/entreprise/${params.id}`
   );
   const offers = useQuery(
     [currentUser?._id, params.id],
@@ -27,7 +27,7 @@ export const EnterpriseOffersAndMessages = () => {
   const queryOffersMessagesFromStudent = async (id: string) => {
     return queryFn(
       "get",
-      `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}?from=${currentUser?.entiteId}&to=${id}`
+      `https://lit-shelf-44437.herokuapp.com/api/message?from=${currentUser?.entiteId}&to=${id}`
     )();
   };
   const queryAllOffers = async (): Promise<Message[][]> => {

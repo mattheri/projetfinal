@@ -16,7 +16,7 @@ export const Stage = () => {
 
   const query: () => Promise<OffreStage> = queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}/${params.id}`
+    `https://lit-shelf-44437.herokuapp.com/api/stage/${params.id}`
   );
 
   const { data, status } = useQuery(queryKey, query);

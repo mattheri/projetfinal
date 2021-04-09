@@ -30,7 +30,7 @@ export const useMessages = (
           read: false,
         };
         const res = await axios.post(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}`,
+          `https://lit-shelf-44437.herokuapp.com/api/message`,
           msg
         );
         refetch();
@@ -44,7 +44,7 @@ export const useMessages = (
     try {
       const response = await (
         await axios.get(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}?from=${from}&to=${to}`
+          `https://lit-shelf-44437.herokuapp.com/api/message?from=${from}&to=${to}`
         )
       ).data;
       return response;

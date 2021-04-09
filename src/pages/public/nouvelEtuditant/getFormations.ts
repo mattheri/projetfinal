@@ -3,9 +3,7 @@ import { Formation, IForm } from "react-app-env";
 
 export const getFormations = async () => {
   const response: Formation[] = await (
-    await axios.get(
-      `${process.env.REACT_APP_API}${process.env.REACT_APP_FORMATION}`
-    )
+    await axios.get(`https://lit-shelf-44437.herokuapp.com/api/formation`)
   ).data;
   let row = 4;
   const formations: IForm[] = response.map((formation, index) => {

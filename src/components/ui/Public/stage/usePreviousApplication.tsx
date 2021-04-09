@@ -10,7 +10,7 @@ export const usePreviousApplication = (to: string | undefined) => {
 
   const query: () => Promise<Message[]> = queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}?from=${currentUser?.entiteId}&to=${to}`
+    `https://lit-shelf-44437.herokuapp.com/api/message?from=${currentUser?.entiteId}&to=${to}`
   );
   const previousApplicationQuery = useQuery(`${to}`, query);
 

@@ -27,9 +27,7 @@ export const EnterpriseList = ({ entityId, id }: EnterpriseListProps) => {
   const getAllEntreprises = async (): Promise<Enterprise[]> => {
     try {
       const response: Enterprise[] = await (
-        await axios.get(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_ENTERPRISES}`
-        )
+        await axios.get(`https://lit-shelf-44437.herokuapp.com/api/entreprise`)
       ).data;
       return response;
     } catch (err) {
@@ -44,7 +42,7 @@ export const EnterpriseList = ({ entityId, id }: EnterpriseListProps) => {
     try {
       const response: Message[] = await (
         await axios.get(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}/${entityId}`
+          `https://lit-shelf-44437.herokuapp.com/api/message/${entityId}`
         )
       ).data;
       setEnterprises(await getAllEntreprises());

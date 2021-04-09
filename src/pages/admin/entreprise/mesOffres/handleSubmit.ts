@@ -53,7 +53,7 @@ export const handleSubmit = (
         formationRequise: formations,
       };
       const response = await axios.put(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}/${selected?._id}`,
+        `https://lit-shelf-44437.herokuapp.com/api/stage/${selected?._id}`,
         body
       );
       console.log(response);

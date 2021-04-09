@@ -16,7 +16,7 @@ export const useRequestInternship = (to: string | undefined) => {
         read: true,
       };
       const res = await axios.post(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}`,
+        `https://lit-shelf-44437.herokuapp.com/api/message`,
         msg
       );
     } catch (err) {

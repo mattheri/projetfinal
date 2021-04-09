@@ -15,13 +15,13 @@ export const StudentList = () => {
   const queryStudents = async (id: string) => {
     return queryFn(
       "get",
-      `${process.env.REACT_APP_API}${process.env.REACT_APP_STUDENTS}/${id}`
+      `https://lit-shelf-44437.herokuapp.com/api/etudiant/${id}`
     )();
   };
 
   const queryMessages: () => Promise<Message[]> = queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}/${params.id}`
+    `https://lit-shelf-44437.herokuapp.com/api/message/${params.id}`
   );
 
   const messages = useQuery([params.id], queryMessages, {

@@ -4,9 +4,7 @@ import { SecteurActivite, IForm } from "react-app-env";
 export const getActivites = (row: number) => {
   return async () => {
     const activites: SecteurActivite[] = await (
-      await axios.get(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_ACTIVITY}`
-      )
+      await axios.get(`https://lit-shelf-44437.herokuapp.com/api/activite`)
     ).data;
     return activites.map((secteur, index) => {
       // For each secteur retrieved, create a form object

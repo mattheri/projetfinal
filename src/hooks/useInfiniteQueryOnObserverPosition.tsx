@@ -10,7 +10,7 @@ export const useInfiniteQueryOnObserverPosition = (
   const fetchResource = async ({ pageParam = 0 }) => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API}${resource}/paginated?page=${pageParam}&perpage=4`
+        `https://lit-shelf-44437.herokuapp.com/api/${resource}/paginated?page=${pageParam}&perpage=4`
       );
       return response.data;
     } catch (err) {

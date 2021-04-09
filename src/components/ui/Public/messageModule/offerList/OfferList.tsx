@@ -14,7 +14,7 @@ type OfferListProps = {
 export const OfferList = ({ user }: OfferListProps) => {
   const query = queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}/entreprise/${user?.entiteId}`
+    `https://lit-shelf-44437.herokuapp.com/api/stage/entreprise/${user?.entiteId}`
   );
   const offres = useQuery([user?.entiteId], query, {
     enabled: !!user?.entiteId,
@@ -22,7 +22,7 @@ export const OfferList = ({ user }: OfferListProps) => {
   const messageQuery = async (id: string) => {
     return queryFn(
       "get",
-      `${process.env.REACT_APP_API}${process.env.REACT_APP_MESSAGES}/${id}`
+      `https://lit-shelf-44437.herokuapp.com/api/message/${id}`
     )();
   };
   const messageQueryByOffers = async () => {
@@ -69,7 +69,7 @@ export const OfferList = ({ user }: OfferListProps) => {
       (uniqueStudentIds as string[]).map((studentId) =>
         queryFn(
           "get",
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_STUDENTS}/${studentId}`
+          `https://lit-shelf-44437.herokuapp.com/api/etudiant/${studentId}`
         )()
       )
     );

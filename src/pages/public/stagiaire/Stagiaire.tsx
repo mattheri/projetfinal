@@ -12,7 +12,7 @@ export const Stagiaire = () => {
   const params = useParams();
   const query: () => Promise<Student> = queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_STUDENTS}/${params.id}`
+    `https://lit-shelf-44437.herokuapp.com/api/etudiant/${params.id}`
   );
   const stagiaireQuery = useQuery(`${params.id}`, query);
   const etudiant = {

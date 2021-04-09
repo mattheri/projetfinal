@@ -4,7 +4,7 @@ import { queryFn } from "utils/queryFn";
 export const getFormations = async () => {
   const formation: Formation[] = await queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_FORMATION}`
+    `https://lit-shelf-44437.herokuapp.com/api/formation`
   )();
   let row = 6;
 

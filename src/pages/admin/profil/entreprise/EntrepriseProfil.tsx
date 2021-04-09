@@ -18,7 +18,7 @@ export const EntrepriseProfile = () => {
   const { currentUser } = useAuth();
   const query = queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_ENTERPRISES}/${currentUser?.entiteId}`
+    `https://lit-shelf-44437.herokuapp.com/api/entreprise/${currentUser?.entiteId}`
   );
   const { data, isLoading, isError, refetch, isFetched } = useQuery(
     queryKey,

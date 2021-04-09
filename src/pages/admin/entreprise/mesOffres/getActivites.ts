@@ -4,7 +4,7 @@ import { queryFn } from "utils/queryFn";
 export const getActivities = async () => {
   const sectors: SecteurActivite[] = await queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_ACTIVITY}`
+    `https://lit-shelf-44437.herokuapp.com/api/activite`
   )();
   let row = 8;
 

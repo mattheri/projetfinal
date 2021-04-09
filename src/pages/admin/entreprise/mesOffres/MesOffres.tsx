@@ -33,7 +33,7 @@ export const MesOffres = () => {
   const { currentUser } = useAuth();
   const query = queryFn(
     "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}/entreprise/${currentUser?.entiteId}`
+    `https://lit-shelf-44437.herokuapp.com/api/stage/entreprise/${currentUser?.entiteId}`
   );
 
   const { data, isLoading, isError, refetch } = useQuery(queryKey, query);
@@ -118,7 +118,7 @@ export const MesOffres = () => {
   const handleDelete = async () => {
     const response = await queryFn(
       "delete",
-      `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}/${selected?._id}`
+      `https://lit-shelf-44437.herokuapp.com/api/stage/${selected?._id}`
     )();
 
     if (response._id === selected?._id) {

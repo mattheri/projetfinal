@@ -24,7 +24,7 @@ export const useQueryOnObserverPosition = (
   const fetchResource = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API}${resource}`
+        `https://lit-shelf-44437.herokuapp.com/api/${resource}`
       );
       return response.data;
     } catch (err) {

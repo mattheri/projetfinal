@@ -44,11 +44,11 @@ export const onSubmit = (
       };
 
       await axios.put(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_STUDENTS}/${entityId}`,
+        `https://lit-shelf-44437.herokuapp.com/api/etudiant/${entityId}`,
         student
       );
       await axios.put(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_USERS}/${id}`,
+        `https://lit-shelf-44437.herokuapp.com/api/utilisateur/${id}`,
         user
       );
     } catch (err) {

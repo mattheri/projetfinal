@@ -48,7 +48,7 @@ export const onSubmit = (
       const studentResponse: () => Promise<Student> = async () => {
         return (
           await axios.post(
-            `${process.env.REACT_APP_API}${process.env.REACT_APP_STUDENTS}`,
+            `https://lit-shelf-44437.herokuapp.com/api/etudiant`,
             newStudent
           )
         ).data;
@@ -65,7 +65,7 @@ export const onSubmit = (
         };
         // Send in the completed user to the API
         const userResponse = await axios.put(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_USERS}/${id}`,
+          `https://lit-shelf-44437.herokuapp.com/api/utilisateur/${id}`,
           user
         );
 

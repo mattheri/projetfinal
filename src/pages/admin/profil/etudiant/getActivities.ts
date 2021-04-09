@@ -4,9 +4,7 @@ import { SecteurActivite, IForm } from "react-app-env";
 export const getActivities = () => {
   return async () => {
     const sectors: SecteurActivite[] = await (
-      await axios.get(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_ACTIVITY}`
-      )
+      await axios.get(`https://lit-shelf-44437.herokuapp.com/api/activite`)
     ).data;
     let row = 6;
     return sectors.map((sector, index) => {

@@ -50,7 +50,7 @@ export const onSubmit = (userId: string | undefined, onSuccess: () => void) => {
         formationRequise: formations,
       };
       const response = await axios.post(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_INTERNSHIP_OFFER}`,
+        `https://lit-shelf-44437.herokuapp.com/api/stage`,
         body
       );
       if (response.status === 200) {
