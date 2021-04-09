@@ -72,7 +72,7 @@ export const StudentList = () => {
               body={lastStudentMessage(student._id)}
               footer={
                 <>
-                  <RouterLink to={`stagiaire/${student._id}`}>
+                  <RouterLink to={`/stagiaire/${student._id}`}>
                     Voir le profil
                   </RouterLink>
                   <RouterLink

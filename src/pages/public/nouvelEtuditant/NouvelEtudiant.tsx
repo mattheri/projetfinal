@@ -1,109 +1,29 @@
-import axios from "axios";
+import { Formulaire } from "components/ui/Common/form/Form";
+import { FormFieldAdder } from "components/ui/Common/formFieldAdder/FormFieldAdder";
+import { newstudent } from "forms/newstudent/newstudent";
+import { useAuth } from "hooks/useAuth";
 import React from "react";
+import { IForm } from "react-app-env";
 import Container from "react-bootstrap/Container";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { Formulaire } from "../../../components/ui/Common/form/Form";
-import { newstudent } from "../../../forms/newstudent/newstudent";
-import { useAuth } from "../../../hooks/useAuth";
-import { Formation, IForm, Student, User } from "../../../react-app-env";
-import { newUserSignupState } from "../../../state/newUserSignupState";
-
-type CheckboxValue = {
-  [key: string]: boolean;
-};
-
-type NewStudentForm = CheckboxValue & {
-  newstudentFirstname: string;
-  newstudentLastname: string;
-  newstudentCV: string;
-};
+import { useRecoilValue } from "recoil";
+import { newUserSignupState } from "state/newUserSignupState";
+import { getFormations } from "./getFormations";
+import { onSubmit } from "./onSubmit";
 
 export const NouvelEtudiant = () => {
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
-  const [newUserState, setNewUserState] = useRecoilState(newUserSignupState);
+  const { currentUser, onSignIn } = useAuth();
+  const newUserState = useRecoilValue(newUserSignupState);
   const [newStudentForm, setNewStudentForm] = React.useState(newstudent);
+  const handleRequestSuccess = () => navigate("/");
 
-  const handleSubmit = async (values: NewStudentForm) => {
-    try {
-      // Formik adds checkboxes as Formation Name: true
-      // Therefore, add the key to the array only if it's true and it's not a string
-      const formations = Object.entries(values)
-        .map(([key, value]) => typeof value !== "string" && value && key)
-        .filter(Boolean);
-
-      // Build the new student object
-      const newStudent: Omit<Student, "_id"> = {
-        cv: values.newstudentCV || "",
-        prenom: values.newstudentFirstname,
-        nom: values.newstudentLastname,
-        formations: formations as string[],
-        adresse: newUserState.adresse as string,
-        codePostal: newUserState.codePostal as string,
-        competences: [],
-        telephone: newUserState.telephone as string,
-        verifie: false,
-        ville: newUserState.ville as string,
-      };
-
-      // Send the new student object to the API and wait for the response
-      const studentResponse: Student = await (
-        await axios.post(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_STUDENTS}`,
-          newStudent
-        )
-      ).data;
-
-      // Once we have it, add the missing fields to the user object
-      // Since the first connection has been done, the user won't have to
-      // re-do everything.
-      const user: Partial<User> = {
-        entiteId: studentResponse._id,
-        premiereConnexion: false,
-        type: "etudiant",
-      };
-      // Send in the completed user to the API
-      const userResponse: User = await (
-        await axios.put(
-          `${process.env.REACT_APP_API}${process.env.REACT_APP_USERS}/${currentUser?._id}`,
-          user
-        )
-      ).data;
-      // Then navigate it to the stages section
-      navigate("/stages");
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-
-  const getFormations = async () => {
-    const response: Formation[] = await (
-      await axios.get(
-        `${process.env.REACT_APP_API}${process.env.REACT_APP_FORMATION}`
-      )
-    ).data;
-    let row = 3;
-    const formations = response.map((formation, index) => {
-      // For each formation retrieved, create a form object
-      const formationCheckBox: IForm = {
-        id: formation.nom,
-        // Increment row value by one each 3 input
-        // Since we add one input at the beginning
-        // Needs to account for this
-        row: index % 3 !== 2 || index === 0 ? row : row++,
-        type: "checkbox",
-        label: formation.nom,
-        span: {
-          sm: 12,
-          md: 4,
-        },
-      };
-      return formationCheckBox;
-    });
-
-    setNewStudentForm((state) => state.concat(formations));
-  };
+  const handleSubmit = onSubmit(
+    newUserState,
+    handleRequestSuccess,
+    currentUser?._id as string,
+    onSignIn
+  );
 
   React.useEffect(() => {
     const length = newstudent.length;
@@ -112,9 +32,33 @@ export const NouvelEtudiant = () => {
     // re-rendered.
     if (newStudentForm.length === length) {
       // Then get all the formations and concat them into the state
-      getFormations();
+      (async () => {
+        const formFields = await getFormations();
+        setNewStudentForm((form) => form.concat(formFields));
+      })();
     }
   }, []);
+
+  const competence = {
+    id: "competence",
+    type: "text",
+    label: "Compétence",
+    required: false,
+    span: {
+      sm: 12,
+    },
+    row: newStudentForm.length,
+    values: null,
+    value: "",
+    validate: function (value: string) {
+      this.value = value;
+      return "";
+    },
+  };
+
+  const handleAddFieldToForm = (newField: IForm) => {
+    setNewStudentForm((form) => form.concat(newField));
+  };
 
   return (
     <main>
@@ -127,7 +71,14 @@ export const NouvelEtudiant = () => {
             formInputs={newStudentForm}
             onSubmit={handleSubmit}
             submitButtonValue="Compléter"
-          />
+          >
+            <FormFieldAdder
+              add={handleAddFieldToForm}
+              formObj={competence}
+              formLength={newStudentForm.length}
+              buttonText="Ajouter une compétence"
+            />
+          </Formulaire>
         </Container>
       </Container>
     </main>

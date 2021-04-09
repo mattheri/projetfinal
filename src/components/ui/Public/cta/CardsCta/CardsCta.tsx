@@ -41,38 +41,45 @@ export const CardsCta = ({
           {isOffreDeStage(data) ? (
             <>
               <Row className="mx-lg-5">
-                {_chunk(data as OffreStage[], 4)[0].map((offre) => {
-                  return (
-                    <Col key={offre._id} sm={12} md={6} lg={3} className="mb-3">
-                      <SmallCard
-                        title={offre.titre}
-                        subtitle={offre.entreprise}
-                        body={offre.description}
-                        footer={
-                          <>
-                            <RouterLink
-                              variant="link"
-                              className="mr-3 pl-0"
-                              to={`/stage/${offre._id}`}
-                            >
-                              Détails
-                            </RouterLink>
-                            <Button
-                              onClick={() =>
-                                handleShow({
-                                  to: offre._id,
-                                  name: offre.titre,
-                                })
-                              }
-                            >
-                              Contacter
-                            </Button>
-                          </>
-                        }
-                      />
-                    </Col>
-                  );
-                })}
+                {data.length > 0 &&
+                  _chunk(data as OffreStage[], 4)[0].map((offre) => {
+                    return (
+                      <Col
+                        key={offre._id}
+                        sm={12}
+                        md={6}
+                        lg={3}
+                        className="mb-3"
+                      >
+                        <SmallCard
+                          title={offre.titre}
+                          subtitle={offre.entreprise}
+                          body={offre.description}
+                          footer={
+                            <>
+                              <RouterLink
+                                variant="link"
+                                className="mr-3 pl-0"
+                                to={`/stage/${offre._id}`}
+                              >
+                                Détails
+                              </RouterLink>
+                              <Button
+                                onClick={() =>
+                                  handleShow({
+                                    to: offre._id,
+                                    name: offre.titre,
+                                  })
+                                }
+                              >
+                                Contacter
+                              </Button>
+                            </>
+                          }
+                        />
+                      </Col>
+                    );
+                  })}
               </Row>
               <Row className="my-5">
                 <Col className="d-flex justify-content-center">
@@ -85,44 +92,45 @@ export const CardsCta = ({
           ) : (
             <>
               <Row className="mx-lg-5">
-                {_chunk(data as Student[], 4)[0].map((stagiaire) => {
-                  return (
-                    <Col
-                      key={stagiaire._id}
-                      sm={12}
-                      md={6}
-                      lg={3}
-                      className="mb-3"
-                    >
-                      <SmallCard
-                        title={`${stagiaire.prenom} ${stagiaire.nom}`}
-                        subtitle={stagiaire.competences.join(" ")}
-                        body={stagiaire.formations.join(" ")}
-                        footer={
-                          <>
-                            <RouterLink
-                              variant="link"
-                              className="mr-3 pl-0"
-                              to={`/stagiaire/${stagiaire._id}`}
-                            >
-                              Détails
-                            </RouterLink>
-                            <Button
-                              onClick={() =>
-                                handleShow({
-                                  to: stagiaire._id,
-                                  name: `${stagiaire.prenom} ${stagiaire.nom}`,
-                                })
-                              }
-                            >
-                              Contacter
-                            </Button>
-                          </>
-                        }
-                      />
-                    </Col>
-                  );
-                })}
+                {data.length > 0 &&
+                  _chunk(data as Student[], 4)[0].map((stagiaire) => {
+                    return (
+                      <Col
+                        key={stagiaire._id}
+                        sm={12}
+                        md={6}
+                        lg={3}
+                        className="mb-3"
+                      >
+                        <SmallCard
+                          title={`${stagiaire.prenom} ${stagiaire.nom}`}
+                          subtitle={stagiaire.competences.join(" ")}
+                          body={stagiaire.formations.join(" ")}
+                          footer={
+                            <>
+                              <RouterLink
+                                variant="link"
+                                className="mr-3 pl-0"
+                                to={`/stagiaire/${stagiaire._id}`}
+                              >
+                                Détails
+                              </RouterLink>
+                              <Button
+                                onClick={() =>
+                                  handleShow({
+                                    to: stagiaire._id,
+                                    name: `${stagiaire.prenom} ${stagiaire.nom}`,
+                                  })
+                                }
+                              >
+                                Contacter
+                              </Button>
+                            </>
+                          }
+                        />
+                      </Col>
+                    );
+                  })}
               </Row>
               <Row className="my-5">
                 <Col className="d-flex justify-content-center">

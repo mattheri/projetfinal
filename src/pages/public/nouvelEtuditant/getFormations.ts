@@ -1,17 +1,17 @@
-import { IForm, Formation } from "react-app-env";
-import { queryFn } from "utils/queryFn";
+import axios from "axios";
+import { Formation, IForm } from "react-app-env";
 
 export const getFormations = async () => {
-  const formation: Formation[] = await queryFn(
-    "get",
-    `${process.env.REACT_APP_API}${process.env.REACT_APP_FORMATION}`
-  )();
-  let row = 6;
-
-  return formation.map((formation, index) => {
+  const response: Formation[] = await (
+    await axios.get(
+      `${process.env.REACT_APP_API}${process.env.REACT_APP_FORMATION}`
+    )
+  ).data;
+  let row = 4;
+  const formations: IForm[] = response.map((formation, index) => {
     // For each formation retrieved, create a form object
     const formationCheckBox: IForm = {
-      id: `formation${formation.nom}`,
+      id: "formation" + formation.nom,
       // Increment row value by one each 3 input
       // Since we add one input at the beginning
       // Needs to account for this
@@ -23,9 +23,8 @@ export const getFormations = async () => {
         md: 4,
       },
     };
-    if (index === 0) {
-      formationCheckBox.title = "Formation acquise ou en cours d'acquisition";
-    }
     return formationCheckBox;
   });
+  formations[0].title = "Formations en cours";
+  return formations;
 };

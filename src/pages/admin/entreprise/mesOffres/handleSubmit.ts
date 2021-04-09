@@ -24,7 +24,8 @@ export const handleSubmit = (
     const formations = Object.entries(values)
       .map(([key, value]) => {
         if (key.includes("formation")) {
-          return value.replace("formation", "");
+          console.log(value);
+          return key.replace("formation", "");
         }
       })
       .filter(Boolean);

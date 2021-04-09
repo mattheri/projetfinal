@@ -86,6 +86,10 @@ export const newuser: IForm[] = [
     },
     options: [
       {
+        value: "",
+        text: "Choisir...",
+      },
+      {
         value: "etudiant",
         text: "Futur stagiaire",
       },

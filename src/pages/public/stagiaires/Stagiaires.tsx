@@ -3,19 +3,20 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { useInfiniteQueryOnObserverPosition } from "../../../hooks/useInfiniteQueryOnObserverPosition";
-import { Loading } from "../../../components/ui/Common/loading/Loading";
-import { Error } from "../../../components/ui/Common/error/Error";
-import { Student } from "../../../react-app-env";
-import { LongCard } from "../../../components/ui/Common/card/LongCard/LongCard";
-import { useFilter } from "../../../hooks/useFilter";
+import { useInfiniteQueryOnObserverPosition } from "hooks/useInfiniteQueryOnObserverPosition";
+import { Loading } from "components/ui/Common/loading/Loading";
+import { Error } from "components/ui/Common/error/Error";
+import { Student } from "react-app-env";
+import { LongCard } from "components/ui/Common/card/LongCard/LongCard";
+import { useFilter } from "hooks/useFilter";
 import { motion, AnimateSharedLayout } from "framer-motion";
-import { useModalMessages } from "../../../hooks/useModalMessages";
-import { BannerCTA } from "../../../components/ui/Public/cta/BannerCTA/BannerCTA";
-import { List } from "../../../components/ui/Common/list/List";
-import { SquareButton } from "../../../components/ui/Common/squarebutton/SquareButton";
-import { Sidebar } from "../../../components/ui/Public/sidebar/Sidebar";
-import { CardsCta } from "../../../components/ui/Public/cta/CardsCta/CardsCta";
+import { useModalMessages } from "hooks/useModalMessages";
+import { BannerCTA } from "components/ui/Public/cta/BannerCTA/BannerCTA";
+import { List } from "components/ui/Common/list/List";
+import { SquareButton } from "components/ui/Common/squarebutton/SquareButton";
+import { Sidebar } from "components/ui/Public/sidebar/Sidebar";
+import { CardsCta } from "components/ui/Public/cta/CardsCta/CardsCta";
+import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
 
 export const Stagiaires = () => {
   const ref = React.useRef<HTMLDivElement>(null);
@@ -25,7 +26,7 @@ export const Stagiaires = () => {
   );
 
   const filter = (filter: string, data: Student[]) => {
-    if (filter) {
+    if (filter && data) {
       return data.filter((offre) =>
         offre.formations.some((formation) => filter.includes(formation))
       );
@@ -71,7 +72,9 @@ export const Stagiaires = () => {
                             >
                               Contacter
                             </Button>
-                            <Button>Détails</Button>
+                            <RouterLink to={`/stagiaire/${etudiant._id}`}>
+                              Détails
+                            </RouterLink>
                           </>
                         }
                       />

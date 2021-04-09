@@ -37,9 +37,6 @@ export const LongCard = ({
           <Card.Body>{body}</Card.Body>
           <Card.Footer>{footer}</Card.Footer>
         </Col>
-        <Col>
-          <Image src={image} loading="lazy" alt={title} decoding="async" />
-        </Col>
       </Row>
     </Card>
   );

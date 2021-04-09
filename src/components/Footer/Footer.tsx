@@ -1,4 +1,3 @@
-import React from "react";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -14,7 +13,7 @@ import "./Footer.scss";
  */
 export const Footer = () => {
   return (
-    <motion.div layout>
+    <motion.div>
       <Container className="bg-light py-5" fluid as="footer">
         <Container>
           <Row>

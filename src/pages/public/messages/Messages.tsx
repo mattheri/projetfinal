@@ -8,6 +8,7 @@ import { StudentList } from "components/ui/Public/messageModule/studentList/Stud
 import { AnimatePresence } from "framer-motion";
 import { useAuth } from "hooks/useAuth";
 import { useMessages } from "hooks/useMessages";
+import { usePrivateRoute } from "hooks/usePrivateRoute";
 import React from "react";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Container from "react-bootstrap/Container";
@@ -41,6 +42,7 @@ export const Messages = () => {
     setCurrentMessageModuleState,
   ] = useRecoilState(messageModuleState(currentUser?._id as string)); // The gloabl state for the message module
   const [breadcrumbs, setBreadcrumbs] = React.useState([breadcrumbItems]);
+  usePrivateRoute();
 
   /**
    * Object containing the current component that should be shown

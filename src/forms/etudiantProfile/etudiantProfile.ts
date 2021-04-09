@@ -61,6 +61,66 @@ export const newstudent: IForm[] = [
     row: 3,
   },
   {
+    id: "startDate",
+    type: "datepicker",
+    label: "Date de début du stage",
+    required: true,
+    span: {
+      sm: 12,
+      md: 4,
+    },
+    row: 3,
+    validate: function (value: string) {
+      if (!value.length) {
+        return "Ce champs est obligatoire.";
+      }
+    },
+  },
+  {
+    id: "degreeEndDate",
+    type: "datepicker",
+    label: "Date de fin du programme",
+    required: true,
+    span: {
+      sm: 12,
+      md: 4,
+    },
+    row: 3,
+    validate: function (value: string) {
+      if (!value.length) {
+        return "Ce champs est obligatoire.";
+      }
+    },
+  },
+  {
+    id: "duree",
+    type: "text",
+    label: "Durée (en semaine)",
+    required: false,
+    span: {
+      sm: 12,
+      md: 4,
+    },
+    row: 3,
+    validate: function (value: string) {
+      if (!value.length) {
+        return "Ce champs est obligatoire.";
+      } else if (/\D|\s/.test(value)) {
+        return "Ce champs n'accepte que des chiffres.";
+      }
+    },
+  },
+  {
+    id: "about",
+    type: "textarea",
+    label: "Décrivez-vous",
+    required: false,
+    span: {
+      sm: 12,
+    },
+    row: 5,
+  },
+  {
     id: "ville",
     type: "text",
     label: "Ville",
@@ -70,7 +130,7 @@ export const newstudent: IForm[] = [
       md: 6,
       lg: 4,
     },
-    row: 4,
+    row: 6,
     validate: (value: string) => {
       if (!value.length) {
         return "Ce champs est obligatoire.";
@@ -87,7 +147,7 @@ export const newstudent: IForm[] = [
       md: 6,
       lg: 4,
     },
-    row: 4,
+    row: 6,
     validate: (value: string) => {
       if (!value.length) {
         return "L'adresse est obligatoire.";
@@ -105,7 +165,7 @@ export const newstudent: IForm[] = [
       sm: 12,
       lg: 4,
     },
-    row: 4,
+    row: 6,
     validate: (value: string) => {
       if (!value.length) {
         return "Ce champs est obligatoire.";

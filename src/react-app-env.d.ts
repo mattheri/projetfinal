@@ -24,6 +24,10 @@ export interface Student {
   formations: string[];
   cv: string;
   verifie: boolean;
+  about: string;
+  startDate: Date | string;
+  duree: number;
+  degreeEndDate: Date | string;
 }
 
 export interface Enterprise {
@@ -104,6 +108,7 @@ export interface OffreStage {
   informationsSupplementaires: string;
   vedette: boolean;
   formationRequise: string[];
+  salaire: number;
 }
 
 export interface Message {

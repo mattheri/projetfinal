@@ -1,5 +1,6 @@
 import { Formulaire } from "components/ui/Common/form/Form";
 import { FormFieldAdder } from "components/ui/Common/formFieldAdder/FormFieldAdder";
+import { Loader } from "components/ui/Common/loader/Loader";
 import { Loading } from "components/ui/Common/loading/Loading";
 import { newstudent } from "forms/etudiantProfile/etudiantProfile";
 import { useAuth } from "hooks/useAuth";
@@ -9,6 +10,7 @@ import Container from "react-bootstrap/Container";
 import { useQuery } from "react-query";
 import { queryFn } from "utils/queryFn";
 import { v4 as uuidv4 } from "uuid";
+import { formatDate } from "./formatDate";
 import { getCompetences } from "./getCompetences";
 import { getFormations } from "./getFormations";
 import { onSubmit } from "./onSubmit";
@@ -22,7 +24,7 @@ export const EtudiantProfile = () => {
     "get",
     `${process.env.REACT_APP_API}${process.env.REACT_APP_STUDENTS}/${currentUser?.entiteId}`
   );
-  const { data, isLoading, isError, refetch, isFetched } = useQuery(
+  const { data, isLoading, refetch, isFetched, status } = useQuery(
     queryKey,
     query
   );
@@ -38,7 +40,10 @@ export const EtudiantProfile = () => {
   const handleInitialValues = () => {
     const userData = { ...data, courriel: currentUser?.courriel };
     return Object.fromEntries([
-      ...newstudent.map((input) => [input.id, userData[input.id]]),
+      ...newstudent.map((input) => [
+        input.id,
+        formatDate(input.id, userData[input.id]),
+      ]),
       ...(data as Student).formations.map((formation) => [
         "formation" + formation,
         true,
@@ -56,12 +61,15 @@ export const EtudiantProfile = () => {
   };
 
   React.useEffect(() => {
-    if (data) {
+    if (data && !form.some((entries) => entries.id.includes("competence"))) {
       const competences = getCompetences(data as Student, form);
       handleConcatToFormAsync(competences);
     }
-    handleConcatToFormAsync(getFormations);
   }, [data]);
+
+  React.useEffect(() => {
+    handleConcatToFormAsync(getFormations);
+  }, []);
 
   const competence = {
     id: "competence",
@@ -87,22 +95,24 @@ export const EtudiantProfile = () => {
   return (
     <main>
       <Container className="py-5">
-        {isLoading && <Loading />}
-        {isFetched && (
-          <Formulaire
-            formInputs={form}
-            onSubmit={handleSubmit}
-            initialValues={handleInitialValues()}
-            submitButtonValue="Modifier"
-          >
-            <FormFieldAdder
-              formLength={form.length}
-              formObj={competence}
-              add={handleAddFieldToForm}
-              buttonText="Ajouter une compétence"
-            />
-          </Formulaire>
-        )}
+        <Loader
+          component={
+            <Formulaire
+              formInputs={form}
+              onSubmit={handleSubmit}
+              initialValues={data ? handleInitialValues() : ""}
+              submitButtonValue="Modifier"
+            >
+              <FormFieldAdder
+                formLength={form.length}
+                formObj={competence}
+                add={handleAddFieldToForm}
+                buttonText="Ajouter une compétence"
+              />
+            </Formulaire>
+          }
+          status={status}
+        />
       </Container>
     </main>
   );

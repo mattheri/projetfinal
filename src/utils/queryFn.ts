@@ -9,7 +9,6 @@ export const queryFn = (
   return async () => {
     try {
       const response = await (await axios[method](url, { body: body })).data;
-
       if (state) {
         return state(response);
       }

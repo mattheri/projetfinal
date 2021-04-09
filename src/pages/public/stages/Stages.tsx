@@ -14,6 +14,7 @@ import { Sidebar } from "components/ui/Public/sidebar/Sidebar";
 import { useFilter } from "hooks/useFilter";
 import { useInfiniteQueryOnObserverPosition } from "hooks/useInfiniteQueryOnObserverPosition";
 import { OffreStage } from "react-app-env";
+import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
 
 export const Stages = () => {
   const ref = React.useRef<HTMLDivElement>(null);
@@ -60,7 +61,11 @@ export const Stages = () => {
                           subtitle={offre.entreprise}
                           sub={offre.competences?.join(" ")}
                           body={offre.description}
-                          footer={offre._id}
+                          footer={
+                            <RouterLink to={`/stage/${offre._id}`}>
+                              En savoir plus
+                            </RouterLink>
+                          }
                         />
                       </Col>
                     </Row>
@@ -69,7 +74,7 @@ export const Stages = () => {
               })}
             </Container>
           )}
-          <div ref={ref}></div>
+          {data && data.pages.length >= 1 && <div ref={ref}></div>}
           <Sidebar
             title="Secteurs d'activité"
             resource={process.env.REACT_APP_ACTIVITY as string}

@@ -11,7 +11,6 @@ import { Index } from "pages/public/index/Index";
 import { NouvelUtilisateur } from "pages/public/nouvelUtilisateur/NouvelUtilisateur";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useAuth } from "hooks/useAuth";
-import { New } from "pages/public/new/New";
 import { NouvelEtudiant } from "pages/public/nouvelEtuditant/NouvelEtudiant";
 import { NouvelleEntreprise } from "pages/public/nouvelleEntreprise/nouvelleEntreprise";
 import { Messages } from "pages/public/messages/Messages";
@@ -20,6 +19,7 @@ import { MesOffres } from "pages/admin/entreprise/mesOffres/MesOffres";
 import { EntrepriseProfile } from "pages/admin/profil/entreprise/EntrepriseProfil";
 import { EtudiantProfile } from "pages/admin/profil/etudiant/EtudiantProfile";
 import { Stage } from "pages/public/stage/Stage";
+import { Stagiaire } from "pages/public/stagiaire/Stagiaire";
 
 const queryClient = new QueryClient();
 
@@ -38,12 +38,13 @@ function App() {
         <Route path="/" element={<Public />}>
           <Route path="/" element={<Index />} />
           <Route path="stage/:id" element={<Stage />} />
+          <Route path="stagiaire/:id" element={<Stagiaire />} />
           <Route path="stages" element={<Stages />} />
           <Route path="stagiaires" element={<Stagiaires />} />
           <Route path="connexion" element={<Connexion />} />
           <Route path="inscription" element={<Inscription />} />
           <Route path="newuser" element={<NouvelUtilisateur />} />
-          <Route path="new" element={<New />}>
+          <Route path="new">
             <Route path="etudiant" element={<NouvelEtudiant />} />
             <Route path="entreprise" element={<NouvelleEntreprise />} />
           </Route>

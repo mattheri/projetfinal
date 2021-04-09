@@ -1,12 +1,12 @@
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
-import usageImage from "../../../assets/images/cta.png";
-import { BannerCTA } from "../../../components/ui/Public/cta/BannerCTA/BannerCTA";
-import { CardsCta } from "../../../components/ui/Public/cta/CardsCta/CardsCta";
-import { CTA } from "../../../components/ui/Public/cta/CTA/CTA";
-import { List } from "../../../components/ui/Common/list/List";
-import { SquareButton } from "../../../components/ui/Common/squarebutton/SquareButton";
+import usageImage from "assets/images/cta.png";
+import { BannerCTA } from "components/ui/Public/cta/BannerCTA/BannerCTA";
+import { CardsCta } from "components/ui/Public/cta/CardsCta/CardsCta";
+import { CTA } from "components/ui/Public/cta/CTA/CTA";
+import { List } from "components/ui/Common/list/List";
+import { SquareButton } from "components/ui/Common/squarebutton/SquareButton";
 
 export const Index = () => {
   return (
@@ -27,7 +27,7 @@ export const Index = () => {
             "Morbi sodales risus quis orci hendrerit sempe",
           ]}
         />
-        <SquareButton to="/entreprise/stages/new">
+        <SquareButton to="/admin">
           Publier une offre de stage maintenant
         </SquareButton>
       </BannerCTA>
@@ -48,7 +48,7 @@ export const Index = () => {
             "Morbi sodales risus quis orci hendrerit sempe",
           ]}
         />
-        <SquareButton to="/entreprise/stages/new">
+        <SquareButton to="/admin">
           Publier une offre de stage maintenant
         </SquareButton>
       </BannerCTA>

@@ -1,10 +1,11 @@
 import axios from "axios";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
+import { queryFn } from "utils/queryFn";
 import { v4 as uuidv4 } from "uuid";
 import { filter } from "../../../../state/filterState";
 import { Error } from "../../Common/error/Error";
@@ -24,20 +25,10 @@ export const Sidebar = ({ title, resource }: SidebarProps) => {
   ).matches;
   const [show, setShow] = React.useState(matchesMediaBreakpoint);
   const [filterState, setFilterState] = useRecoilState(filter(resource));
-  const queryFn = async () => {
-    try {
-      const response = await (
-        await axios.get(`${process.env.REACT_APP_API}${resource}`)
-      ).data;
-      return response;
-    } catch (err) {
-      console.warn(err);
-      return err;
-    }
-  };
+  const query = queryFn("get", `${process.env.REACT_APP_API}${resource}`);
 
   const { data, isLoading, isError } = useQuery(`${queryKey}`, {
-    queryFn: queryFn,
+    queryFn: query,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
