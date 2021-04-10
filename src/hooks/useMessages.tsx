@@ -29,7 +29,7 @@ export const useMessages = (
           from: from as string,
           read: false,
         };
-        const res = await axios.post(
+        await axios.post(
           `https://lit-shelf-44437.herokuapp.com/api/message`,
           msg
         );

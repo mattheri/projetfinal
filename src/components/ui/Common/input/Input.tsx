@@ -43,6 +43,7 @@ export const Input = ({
   } else if (type === "datepicker") {
     component = DatepickerInput;
   }
+
   return (
     <>
       {type !== "checkbox" && <Form.Label>{label}</Form.Label>}

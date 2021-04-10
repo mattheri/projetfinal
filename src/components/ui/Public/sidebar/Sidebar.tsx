@@ -1,4 +1,3 @@
-import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import Button from "react-bootstrap/Button";

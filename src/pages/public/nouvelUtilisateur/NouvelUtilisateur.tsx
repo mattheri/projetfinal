@@ -1,10 +1,10 @@
 import Container from "react-bootstrap/Container";
-import { Formulaire } from "../../../components/ui/Common/form/Form";
-import { newuser } from "../../../forms/newuser/newuser";
+import { Formulaire } from "components/ui/Common/form/Form";
+import { newuser } from "forms/newuser/newuser";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { newUserSignupState } from "../../../state/newUserSignupState";
-import { appState } from "../../../state/app";
+import { newUserSignupState } from "state/newUserSignupState";
+import { appState } from "state/app";
 
 type NewUserForm = {
   newuserAddress: string;
@@ -16,7 +16,7 @@ type NewUserForm = {
 
 export const NouvelUtilisateur = () => {
   const navigate = useNavigate();
-  const [newUserState, setNewUserState] = useRecoilState(newUserSignupState);
+  const [, setNewUserState] = useRecoilState(newUserSignupState);
   const currentAppState = useRecoilValue(appState);
 
   const handleSubmit = async ({

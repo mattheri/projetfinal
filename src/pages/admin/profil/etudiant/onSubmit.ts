@@ -1,7 +1,7 @@
+/* eslint-disable */
 import axios from "axios";
 
 export const onSubmit = (
-  onSuccess: () => void,
   entityId: string | undefined,
   id: string | undefined
 ) => {

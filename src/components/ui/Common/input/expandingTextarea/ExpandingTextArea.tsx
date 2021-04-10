@@ -3,6 +3,18 @@ import Form from "react-bootstrap/Form";
 import { InputProps } from "../Input";
 import "./ExpandingTextarea.scss";
 
+type ExpandingTextAreaProps = Pick<
+  InputProps,
+  | "id"
+  | "type"
+  | "handler"
+  | "onBlur"
+  | "touched"
+  | "value"
+  | "error"
+  | "placeholder"
+>;
+
 export const ExpandingTextArea = ({
   id,
   type,
@@ -12,7 +24,7 @@ export const ExpandingTextArea = ({
   value,
   error,
   placeholder,
-}: InputProps) => {
+}: ExpandingTextAreaProps) => {
   const [height, setHeight] = React.useState(0);
   const ref = React.useRef<HTMLDivElement>(null);
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

@@ -5,8 +5,6 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { SmallText } from "components/ui/Common/smalltext/SmallText";
-import Table from "react-bootstrap/Table";
-import { DateTime } from "luxon";
 import { useModalMessages } from "hooks/useModalMessages";
 import { List } from "components/ui/Common/list/List";
 
@@ -16,13 +14,6 @@ type StagiaireProps = {
 
 export const StagiaireComponent = ({ etudiant }: StagiaireProps) => {
   const { Modal, handleShow } = useModalMessages();
-  const showIfEmptyOrContent = (arr: string[] | undefined) => {
-    if (arr?.length) {
-      return arr.join(", ");
-    }
-
-    return "Aucune";
-  };
 
   return (
     <>

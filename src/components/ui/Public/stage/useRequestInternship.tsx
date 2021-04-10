@@ -15,7 +15,7 @@ export const useRequestInternship = (to: string | undefined) => {
         from: currentUser?.entiteId as string,
         read: true,
       };
-      const res = await axios.post(
+      await axios.post(
         `https://lit-shelf-44437.herokuapp.com/api/message`,
         msg
       );

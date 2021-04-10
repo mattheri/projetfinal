@@ -5,9 +5,17 @@ import { Datepicker } from "./Datepicker/Datepicker";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 
-type DatePickerProps = Omit<InputProps, "handler"> & {
-  handler: (date: string) => void;
-};
+type DatePickerProps = Pick<
+  InputProps,
+  | "id"
+  | "type"
+  | "handler"
+  | "onBlur"
+  | "touched"
+  | "value"
+  | "error"
+  | "placeholder"
+>;
 
 export const DatepickerInput = ({
   id,
@@ -18,7 +26,7 @@ export const DatepickerInput = ({
   value,
   error,
   placeholder,
-}: InputProps) => {
+}: DatePickerProps) => {
   const [show, setShow] = React.useState(false);
   const ref = React.useRef<HTMLInputElement>(null);
   const handleShow = () => setShow(!show);

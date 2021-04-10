@@ -1,4 +1,3 @@
-import { MessageHub } from "components/ui/Common/messagehub/MessageHub";
 import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
 import { EnterpriseList } from "components/ui/Public/messageModule/enterpriseList/EnterpriseList";
 import { EnterpriseOffersAndMessages } from "components/ui/Public/messageModule/enterpriseOffersAndMessage/EnterpriseOffersAndMessages";
@@ -7,15 +6,12 @@ import { SelectedMessages } from "components/ui/Public/messageModule/selectedMes
 import { StudentList } from "components/ui/Public/messageModule/studentList/StudentList";
 import { AnimatePresence } from "framer-motion";
 import { useAuth } from "hooks/useAuth";
-import { useMessages } from "hooks/useMessages";
 import { usePrivateRoute } from "hooks/usePrivateRoute";
 import React from "react";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import { Outlet, Route, Routes, useLocation } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { messageModuleState } from "state/messageModuleState";
+import { Route, Routes } from "react-router-dom";
 import "./Messages.scss";
 import { useGetCurrentUserType } from "./useGetCurrentUserType";
 
@@ -37,11 +33,7 @@ export const Messages = () => {
     to: "/messages",
     text: userType === "entreprise" ? "Offres & Étudiants" : "Entreprises",
   };
-  const [
-    currentMessageModuleState,
-    setCurrentMessageModuleState,
-  ] = useRecoilState(messageModuleState(currentUser?._id as string)); // The gloabl state for the message module
-  const [breadcrumbs, setBreadcrumbs] = React.useState([breadcrumbItems]);
+  const [breadcrumbs] = React.useState([breadcrumbItems]);
   usePrivateRoute();
 
   /**

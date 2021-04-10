@@ -18,10 +18,7 @@ import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
 
 export const Stages = () => {
   const ref = React.useRef<HTMLDivElement>(null);
-  const { data, isError, isLoading } = useInfiniteQueryOnObserverPosition(
-    ref,
-    "stage"
-  );
+  const { data, isError } = useInfiniteQueryOnObserverPosition(ref, "stage");
 
   const filter = (filter: string, data: OffreStage[]) => {
     if (filter) {

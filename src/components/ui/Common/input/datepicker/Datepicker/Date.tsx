@@ -1,5 +1,6 @@
-import React from "react";
+/* eslint-disable */
 import classnames from "classnames";
+import React from "react";
 import "./Date.scss";
 
 type DateProps = {

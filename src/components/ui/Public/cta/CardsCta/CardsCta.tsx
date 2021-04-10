@@ -4,15 +4,15 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import { useModalMessages } from "../../../../../hooks/useModalMessages";
-import { useQueryOnObserverPosition } from "../../../../../hooks/useQueryOnObserverPosition";
-import { OffreStage, Student, User } from "../../../../../react-app-env";
-import { isOffreDeStage } from "../../../../../utils/typeGuards";
-import { SmallCard } from "../../../Common/card/SmallCard/SmallCard";
-import { Empty } from "../../../Common/empty/Empty";
-import { Error } from "../../../Common/error/Error";
-import { Loading } from "../../../Common/loading/Loading";
-import { RouterLink } from "../../../Common/routerlink/RouterLink";
+import { useModalMessages } from "hooks/useModalMessages";
+import { useQueryOnObserverPosition } from "hooks/useQueryOnObserverPosition";
+import { OffreStage, Student } from "react-app-env";
+import { isOffreDeStage } from "utils/typeGuards";
+import { SmallCard } from "components/ui/Common/card/SmallCard/SmallCard";
+import { Empty } from "components/ui/Common/empty/Empty";
+import { Error } from "components/ui/Common/error/Error";
+import { Loading } from "components/ui/Common/loading/Loading";
+import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
 
 type CardsCtaProps = {
   resource?: string;

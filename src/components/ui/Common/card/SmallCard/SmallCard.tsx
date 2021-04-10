@@ -1,8 +1,9 @@
+/* eslint-disable */
+import classnames from "classnames";
+import { motion } from "framer-motion";
 import React from "react";
 import Card from "react-bootstrap/Card";
-import { motion } from "framer-motion";
 import { SmallText } from "../../smalltext/SmallText";
-import classnames from "classnames";
 import "./SmallCard.scss";
 
 export type CardProps = {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Formulaire } from "components/ui/Common/form/Form";
 import { FormFieldAdder } from "components/ui/Common/formFieldAdder/FormFieldAdder";
 import { newstudent } from "forms/newstudent/newstudent";

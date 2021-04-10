@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import Col from "react-bootstrap/Col";
 import { motion } from "framer-motion";

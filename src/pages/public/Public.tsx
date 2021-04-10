@@ -1,6 +1,6 @@
-import { Header } from "../../components/Header/Header";
-import { useLocation, Routes, Route, Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Footer } from "../../components/Footer/Footer";
+import { Header } from "../../components/Header/Header";
 
 export const Public = () => {
   const location = useLocation();

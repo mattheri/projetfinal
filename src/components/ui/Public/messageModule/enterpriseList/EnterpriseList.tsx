@@ -1,14 +1,14 @@
+/* eslint-disable */
 import axios from "axios";
-import { Enterprise, Message } from "react-app-env";
-import { useQuery } from "react-query";
-import Col from "react-bootstrap/Col";
-import React from "react";
 import { SmallCard } from "components/ui/Common/card/SmallCard/SmallCard";
+import { Loading } from "components/ui/Common/loading/Loading";
 import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
-import { Button, Badge } from "react-bootstrap";
+import React from "react";
+import { Enterprise, Message } from "react-app-env";
+import Col from "react-bootstrap/Col";
+import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 import { messageModuleState } from "state/messageModuleState";
-import { Loading } from "components/ui/Common/loading/Loading";
 
 type EnterpriseListProps = {
   entityId: string | undefined;
@@ -17,10 +17,9 @@ type EnterpriseListProps = {
 
 export const EnterpriseList = ({ entityId, id }: EnterpriseListProps) => {
   const [enterprises, setEnterprises] = React.useState<Enterprise[]>([]);
-  const [
-    currentMessageModuleState,
-    setCurrentMessageModuleState,
-  ] = useRecoilState(messageModuleState(id as string));
+  const [, setCurrentMessageModuleState] = useRecoilState(
+    messageModuleState(id as string)
+  );
   /**
    * get all the enterprises
    */
@@ -52,7 +51,7 @@ export const EnterpriseList = ({ entityId, id }: EnterpriseListProps) => {
     }
   };
 
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading } = useQuery(
     entityId as string,
     getAllMessagesFromCurrentStudent,
     { enabled: !!entityId }

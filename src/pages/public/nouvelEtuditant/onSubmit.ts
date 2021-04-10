@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Student, User } from "react-app-env";
 import axios from "axios";
 

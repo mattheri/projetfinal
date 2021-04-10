@@ -1,18 +1,14 @@
+/* eslint-disable */
 import axios from "axios";
 import React from "react";
 import Container from "react-bootstrap/Container";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { Formulaire } from "../../../components/ui/Common/form/Form";
-import { newenterprise } from "../../../forms/newEnterprise/newEnterprise";
-import { useAuth } from "../../../hooks/useAuth";
-import {
-  IForm,
-  User,
-  Enterprise,
-  SecteurActivite,
-} from "../../../react-app-env";
-import { newUserSignupState } from "../../../state/newUserSignupState";
+import { Formulaire } from "components/ui/Common/form/Form";
+import { newenterprise } from "forms/newEnterprise/newEnterprise";
+import { useAuth } from "hooks/useAuth";
+import { IForm, User, Enterprise, SecteurActivite } from "react-app-env";
+import { newUserSignupState } from "state/newUserSignupState";
 
 type CheckboxValue = {
   [key: string]: boolean;
@@ -77,7 +73,7 @@ export const NouvelleEntreprise = () => {
         type: "entreprise",
       };
       // Send in the completed user to the API
-      const userResponse: User = await (
+      await (
         await axios.put(
           `https://lit-shelf-44437.herokuapp.com/api/utilisateur/${currentUser?._id}`,
           user

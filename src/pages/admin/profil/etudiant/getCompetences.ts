@@ -1,4 +1,4 @@
-import { IForm, OffreStage, Student } from "react-app-env";
+import { IForm, Student } from "react-app-env";
 
 export const getCompetences = (student: Student, form: IForm[]) => {
   return async () =>

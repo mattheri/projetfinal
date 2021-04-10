@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { SmallCard } from "components/ui/Common/card/SmallCard/SmallCard";
 import { Loading } from "components/ui/Common/loading/Loading";
 import { RouterLink } from "components/ui/Common/routerlink/RouterLink";

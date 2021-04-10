@@ -1,5 +1,5 @@
 import React from "react";
-import { QueryClient, useQuery } from "react-query";
+import { QueryClient } from "react-query";
 import axios from "axios";
 import { useIntersectionObserver } from "./useIntersectionObserver";
 import { v4 as uuidv4 } from "uuid";

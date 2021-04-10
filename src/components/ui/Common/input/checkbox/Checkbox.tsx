@@ -1,7 +1,10 @@
 import Form from "react-bootstrap/Form";
 import { InputProps } from "../Input";
 
-type CheckboxProps = InputProps;
+type CheckboxProps = Pick<
+  InputProps,
+  "id" | "label" | "handler" | "touched" | "value" | "error"
+>;
 
 export const Checkbox = ({
   id,

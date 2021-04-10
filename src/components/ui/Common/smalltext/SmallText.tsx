@@ -1,3 +1,4 @@
+/* eslint-disable */
 import classnames from "classnames";
 import "./SmallText.scss";
 

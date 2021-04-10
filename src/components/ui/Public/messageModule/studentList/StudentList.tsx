@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { SmallCard } from "components/ui/Common/card/SmallCard/SmallCard";
 import { Loading } from "components/ui/Common/loading/Loading";
 import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
@@ -5,7 +6,7 @@ import { useAuth } from "hooks/useAuth";
 import { Message, Student } from "react-app-env";
 import Col from "react-bootstrap/Col";
 import { useQuery } from "react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { queryFn } from "utils/queryFn";
 
 export const StudentList = () => {

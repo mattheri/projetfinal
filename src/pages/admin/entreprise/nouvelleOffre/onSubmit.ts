@@ -1,3 +1,4 @@
+/* eslint-disable */
 import axios from "axios";
 
 export const onSubmit = (userId: string | undefined, onSuccess: () => void) => {

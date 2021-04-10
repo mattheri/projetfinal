@@ -1,12 +1,12 @@
+/* eslint-disable */
 import { FormFieldAdder } from "components/ui/Common/formFieldAdder/FormFieldAdder";
 import React from "react";
-import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import { useNavigate } from "react-router-dom";
-import { Formulaire } from "../../../../components/ui/Common/form/Form";
-import { newstage } from "../../../../forms/newStage/newStage";
-import { useAuth } from "../../../../hooks/useAuth";
-import { IForm } from "../../../../react-app-env";
+import { Formulaire } from "components/ui/Common/form/Form";
+import { newstage } from "forms/newStage/newStage";
+import { useAuth } from "hooks/useAuth";
+import { IForm } from "react-app-env";
 import { getFormations } from "./getFormations";
 import { getActivites } from "./getActivites";
 import { onSubmit } from "./onSubmit";

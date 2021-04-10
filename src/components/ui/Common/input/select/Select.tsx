@@ -1,7 +1,10 @@
 import Form from "react-bootstrap/Form";
 import { InputProps } from "../Input";
 
-type SelectProps = InputProps;
+type SelectProps = Pick<
+  InputProps,
+  "id" | "type" | "handler" | "touched" | "value" | "error" | "options"
+>;
 
 export const Select = ({
   id,

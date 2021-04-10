@@ -1,5 +1,6 @@
+/* eslint-disable */
 import { Formulaire } from "components/ui/Common/form/Form";
-import { Loading } from "components/ui/Common/loading/Loading";
+import { Loader } from "components/ui/Common/loader/Loader";
 import { entrepriseProfile } from "forms/entrepriseProfile/entrepriseProfile";
 import { useAuth } from "hooks/useAuth";
 import React from "react";
@@ -20,10 +21,7 @@ export const EntrepriseProfile = () => {
     "get",
     `https://lit-shelf-44437.herokuapp.com/api/entreprise/${currentUser?.entiteId}`
   );
-  const { data, isLoading, isError, refetch, isFetched } = useQuery(
-    queryKey,
-    query
-  );
+  const { data, refetch, status } = useQuery(queryKey, query);
 
   const handleSuccessSubmit = () => {
     refetch();
@@ -53,15 +51,17 @@ export const EntrepriseProfile = () => {
   return (
     <main>
       <Container className="py-5">
-        {isLoading && <Loading />}
-        {isFetched && (
-          <Formulaire
-            formInputs={form}
-            onSubmit={handleSubmit}
-            initialValues={handleInitialValues()}
-            submitButtonValue="Modifier"
-          />
-        )}
+        <Loader
+          component={
+            <Formulaire
+              formInputs={form}
+              onSubmit={handleSubmit}
+              initialValues={handleInitialValues()}
+              submitButtonValue="Modifier"
+            />
+          }
+          status={status}
+        />
       </Container>
     </main>
   );

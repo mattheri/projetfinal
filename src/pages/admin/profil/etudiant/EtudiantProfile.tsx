@@ -1,7 +1,7 @@
+/* eslint-disable */
 import { Formulaire } from "components/ui/Common/form/Form";
 import { FormFieldAdder } from "components/ui/Common/formFieldAdder/FormFieldAdder";
 import { Loader } from "components/ui/Common/loader/Loader";
-import { Loading } from "components/ui/Common/loading/Loading";
 import { newstudent } from "forms/etudiantProfile/etudiantProfile";
 import { useAuth } from "hooks/useAuth";
 import React from "react";
@@ -24,19 +24,12 @@ export const EtudiantProfile = () => {
     "get",
     `https://lit-shelf-44437.herokuapp.com/api/etudiant/${currentUser?.entiteId}`
   );
-  const { data, isLoading, refetch, isFetched, status } = useQuery(
-    queryKey,
-    query
-  );
+  const { data, refetch, status } = useQuery(queryKey, query);
 
   const handleSuccessSubmit = () => {
     refetch();
   };
-  const handleSubmit = onSubmit(
-    handleSuccessSubmit,
-    currentUser?.entiteId,
-    currentUser?._id
-  );
+  const handleSubmit = onSubmit(currentUser?.entiteId, currentUser?._id);
   const handleInitialValues = () => {
     const userData = { ...data, courriel: currentUser?.courriel };
     return Object.fromEntries([

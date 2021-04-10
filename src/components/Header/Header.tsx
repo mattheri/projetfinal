@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import classnames from "classnames";
 import { Navigation } from "../Navbar/Navigation";
@@ -28,7 +29,7 @@ export const Header = ({ full }: HeaderProps) => {
         <img
           src={`https://via.placeholder.com/${window.innerWidth}x${height}`}
           className="background-image"
-          alt="Header Image"
+          alt="Header"
           loading="lazy"
           decoding="async"
         />

@@ -3,7 +3,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useAuth } from "../../../../hooks/useAuth";
 import { Message } from "../../../../react-app-env";
-import { Empty } from "../empty/Empty";
 import { MessageUI } from "../messageUI/MessageUI";
 
 type MessageHubProps = {
@@ -15,7 +14,6 @@ export const MessageHub = ({ messages, id }: MessageHubProps) => {
   const { currentUser } = useAuth();
   return (
     <Container layout as={motion.div}>
-      {messages.length === 0 && <Empty />}
       {messages
         .sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf())
         .map((message) => {

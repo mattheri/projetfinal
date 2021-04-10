@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";

@@ -1,5 +1,4 @@
 import { useAuth } from "hooks/useAuth";
-import React from "react";
 
 export const useGetCurrentUserType = () => {
   const { currentUser } = useAuth();

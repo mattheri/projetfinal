@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { filter } from "../state/filterState";

@@ -1,7 +1,7 @@
+/* eslint-disable */
 import React from "react";
 import classnames from "classnames";
 import "./SideMenu.scss";
-import { useClickOutside } from "../../../../hooks/useClickOutside";
 
 type SideMenuProps = {
   toggle: boolean;

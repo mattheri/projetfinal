@@ -3,7 +3,7 @@ import { IForm } from "react-app-env";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 
-type FormFieldAdder = {
+type FormFieldAdderProps = {
   formLength: number;
   formObj: IForm;
   add: (v: IForm) => void;
@@ -15,7 +15,7 @@ export const FormFieldAdder = ({
   formObj,
   add,
   buttonText = "Ajouter",
-}: FormFieldAdder) => {
+}: FormFieldAdderProps) => {
   const handleAddToForm = () => {
     formObj.id = formObj.id + formLength;
     add(formObj);
