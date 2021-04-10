@@ -10,12 +10,15 @@ import { SmallText } from "components/ui/Common/smalltext/SmallText";
 import Table from "react-bootstrap/Table";
 import { DateTime } from "luxon";
 import { useModalMessages } from "hooks/useModalMessages";
+import { ContactButton } from "../contactButton/ContactButton";
+import { useAuth } from "hooks/useAuth";
 
 type StageProps = {
   stage: OffreStage | undefined;
 };
 
 export const StageComponent = ({ stage }: StageProps) => {
+  const { currentUser } = useAuth();
   const [applicationStatus, setApplicationStatus] = React.useState(false);
   const { hasApplied, refetch } = usePreviousApplication(stage?._id);
   const query = useRequestInternship(stage?._id);
@@ -72,15 +75,20 @@ export const StageComponent = ({ stage }: StageProps) => {
         </Table>
         <Button
           onClick={handleSendInternshipRequest}
-          disabled={applicationStatus || hasApplied}
+          disabled={
+            currentUser?.premiereConnexion === true ||
+            currentUser === null ||
+            applicationStatus ||
+            hasApplied
+          }
         >
           {buttonText[`${applicationStatus || hasApplied}`]}
         </Button>{" "}
-        <Button
+        <ContactButton
           onClick={() => handleShow({ to: stage?._id, name: stage?.titre })}
         >
           Contacter
-        </Button>
+        </ContactButton>
       </Jumbotron>
       <Row>
         <Col>
@@ -142,7 +150,12 @@ export const StageComponent = ({ stage }: StageProps) => {
             className="mt-3"
             block
             onClick={handleSendInternshipRequest}
-            disabled={applicationStatus || hasApplied}
+            disabled={
+              currentUser?.premiereConnexion === true ||
+              currentUser === null ||
+              applicationStatus ||
+              hasApplied
+            }
           >
             {buttonText[`${applicationStatus || hasApplied}`]}
           </Button>

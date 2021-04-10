@@ -9,7 +9,7 @@ type LoaderProps = {
 
 export const Loader = ({ status, component }: LoaderProps) => {
   const componentToLoad = {
-    success: React.cloneElement(component),
+    success: component && React.cloneElement(component),
     loading: <Loading />,
     idle: <Loading />,
     error: <Error />,

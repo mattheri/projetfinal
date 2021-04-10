@@ -8,9 +8,7 @@ import Row from "react-bootstrap/Row";
 import { useQuery } from "react-query";
 import { v4 as uuidv4 } from "uuid";
 import { SmallCard } from "components/ui/Common/card/SmallCard/SmallCard";
-import { Error } from "components/ui/Common/error/Error";
 import { Formulaire } from "components/ui/Common/form/Form";
-import { Loading } from "components/ui/Common/loading/Loading";
 import { SideMenu } from "components/ui/Common/sidemenu/SideMenu";
 import { newstage } from "forms/newStage/newStage";
 import { useAuth } from "hooks/useAuth";
@@ -22,6 +20,7 @@ import { getActivities } from "./getActivites";
 import { getCompetences } from "./getCompetences";
 import { getFormations } from "./getFormations";
 import { formatDate } from "./formatDate";
+import { Loader } from "components/ui/Common/loader/Loader";
 
 const queryKey = uuidv4();
 
@@ -37,7 +36,7 @@ export const MesOffres = () => {
     `https://lit-shelf-44437.herokuapp.com/api/stage/entreprise/${currentUser?.entiteId}`
   );
 
-  const { data, isLoading, isError, refetch } = useQuery(queryKey, query);
+  const { data, refetch, status } = useQuery(queryKey, query);
 
   /**
    * Sets the selected state and open the menu.
@@ -131,29 +130,32 @@ export const MesOffres = () => {
   return (
     <main className="position-relative">
       <Container>
-        {isLoading && <Loading />}
-        {isError && <Error />}
         <Row>
-          {data &&
-            data.length > 0 &&
-            (data as OffreStage[]).map((offre) => (
-              <Col xs={12} md={6} lg={4} className="py-3">
-                <SmallCard
-                  title={offre.titre}
-                  subtitle={offre.competences.join(" ")}
-                  body={offre.description}
-                  footer={
-                    <Button
-                      onClick={() => handleOpenSideMenuWithData(offre)}
-                      block
-                      variant="info"
-                    >
-                      Voir plus &amp; modifier
-                    </Button>
-                  }
-                />
-              </Col>
-            ))}
+          <Loader
+            component={
+              data &&
+              data.length > 0 &&
+              (data as OffreStage[]).map((offre) => (
+                <Col xs={12} md={6} lg={4} className="py-3">
+                  <SmallCard
+                    title={offre.titre}
+                    subtitle={offre.competences.join(" ")}
+                    body={offre.description}
+                    footer={
+                      <Button
+                        onClick={() => handleOpenSideMenuWithData(offre)}
+                        block
+                        variant="info"
+                      >
+                        Voir plus &amp; modifier
+                      </Button>
+                    }
+                  />
+                </Col>
+              ))
+            }
+            status={status}
+          />
         </Row>
       </Container>
       <SideMenu className="p-3" ref={ref} shade toggle={show}>

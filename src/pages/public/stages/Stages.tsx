@@ -4,7 +4,6 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { LongCard } from "components/ui/Common/card/LongCard/LongCard";
-import { Error } from "components/ui/Common/error/Error";
 import { List } from "components/ui/Common/list/List";
 import { Loading } from "components/ui/Common/loading/Loading";
 import { SquareButton } from "components/ui/Common/squarebutton/SquareButton";
@@ -15,10 +14,14 @@ import { useFilter } from "hooks/useFilter";
 import { useInfiniteQueryOnObserverPosition } from "hooks/useInfiniteQueryOnObserverPosition";
 import { OffreStage } from "react-app-env";
 import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
+import { Loader } from "components/ui/Common/loader/Loader";
 
 export const Stages = () => {
   const ref = React.useRef<HTMLDivElement>(null);
-  const { data, isError } = useInfiniteQueryOnObserverPosition(ref, "stage");
+  const { data, status, isFetching } = useInfiniteQueryOnObserverPosition(
+    ref,
+    "stage"
+  );
 
   const filter = (filter: string, data: OffreStage[]) => {
     if (filter) {
@@ -45,33 +48,37 @@ export const Stages = () => {
     <main>
       <Container fluid className="py-5 d-flex position-relative">
         <AnimateSharedLayout>
-          {isError && <Error />}
-          {filteredData && (
-            <Container>
-              {filteredData.map((offre: OffreStage) => {
-                return (
-                  <React.Suspense key={offre._id} fallback={<Loading />}>
-                    <Row layout className="mx-2" as={motion.div}>
-                      <Col>
-                        <LongCard
-                          title={offre.titre}
-                          subtitle={offre.entreprise}
-                          sub={offre.competences?.join(" ")}
-                          body={offre.description}
-                          footer={
-                            <RouterLink to={`/stage/${offre._id}`}>
-                              En savoir plus
-                            </RouterLink>
-                          }
-                        />
-                      </Col>
-                    </Row>
-                  </React.Suspense>
-                );
-              })}
-            </Container>
-          )}
-          {data && data.pages.length >= 1 && <div ref={ref}></div>}
+          <Loader
+            component={
+              filteredData && (
+                <Container>
+                  {filteredData.map((offre: OffreStage) => {
+                    return (
+                      <React.Suspense key={offre._id} fallback={<Loading />}>
+                        <Row layout className="mx-2" as={motion.div}>
+                          <Col>
+                            <LongCard
+                              title={offre.titre}
+                              subtitle={offre.entreprise}
+                              sub={offre.competences?.join(" ")}
+                              body={offre.description}
+                              footer={
+                                <RouterLink to={`/stage/${offre._id}`}>
+                                  En savoir plus
+                                </RouterLink>
+                              }
+                            />
+                          </Col>
+                        </Row>
+                      </React.Suspense>
+                    );
+                  })}
+                </Container>
+              )
+            }
+            status={status}
+          />
+          {!isFetching && <div ref={ref}></div>}
           <Sidebar
             title="Secteurs d'activité"
             resource={"activite" as string}

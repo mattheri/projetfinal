@@ -1,4 +1,3 @@
-import React from "react";
 import { Student, User } from "react-app-env";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
@@ -7,6 +6,9 @@ import Col from "react-bootstrap/Col";
 import { SmallText } from "components/ui/Common/smalltext/SmallText";
 import { useModalMessages } from "hooks/useModalMessages";
 import { List } from "components/ui/Common/list/List";
+import { ContactButton } from "../contactButton/ContactButton";
+import Table from "react-bootstrap/Table";
+import { DateTime } from "luxon";
 
 type StagiaireProps = {
   etudiant: (Student & Pick<User, "courriel">) | undefined;
@@ -23,7 +25,33 @@ export const StagiaireComponent = ({ etudiant }: StagiaireProps) => {
         </h1>
         <h3 className="mb-3">{etudiant?.ville}</h3>
         <List>{etudiant?.formations}</List>
-        <Button
+        <Row>
+          <Table borderless responsive>
+            <thead>
+              <tr>
+                <th>Date de début du stage</th>
+                <th>Date de fin du programme</th>
+                <th>Durée des stages</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  {DateTime.fromJSDate(
+                    new Date((etudiant?.startDate as unknown) as string)
+                  ).toLocaleString()}
+                </td>
+                <td>
+                  {DateTime.fromJSDate(
+                    new Date((etudiant?.degreeEndDate as unknown) as string)
+                  ).toLocaleString()}
+                </td>
+                <td>{etudiant?.duree} semaines</td>
+              </tr>
+            </tbody>
+          </Table>
+        </Row>
+        <ContactButton
           onClick={() =>
             handleShow({
               to: etudiant?._id,
@@ -32,7 +60,7 @@ export const StagiaireComponent = ({ etudiant }: StagiaireProps) => {
           }
         >
           Contacter
-        </Button>{" "}
+        </ContactButton>{" "}
         <Button href={etudiant?.cv} disabled={!!!etudiant?.cv} target="_blank">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,6 +82,11 @@ export const StagiaireComponent = ({ etudiant }: StagiaireProps) => {
             <strong>Compétences additionelles:</strong>{" "}
             <List>{etudiant?.competences}</List>
           </SmallText>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <SmallText>{etudiant?.about}</SmallText>
         </Col>
       </Row>
       {Modal}

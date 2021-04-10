@@ -26,6 +26,8 @@ export const useInfiniteQueryOnObserverPosition = (
     fetchNextPage,
     isFetchingNextPage,
     hasNextPage,
+    status,
+    isFetching,
   } = useInfiniteQuery(`${resource}state`, fetchResource, {
     getNextPageParam: (lastPage) => lastPage.cursor ?? false,
   });
@@ -65,5 +67,7 @@ export const useInfiniteQueryOnObserverPosition = (
     data: data,
     isLoading: isLoading,
     isError: isError,
+    status: status,
+    isFetching: isFetching,
   };
 };

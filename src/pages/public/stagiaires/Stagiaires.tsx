@@ -2,10 +2,7 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import { useInfiniteQueryOnObserverPosition } from "hooks/useInfiniteQueryOnObserverPosition";
-import { Loading } from "components/ui/Common/loading/Loading";
-import { Error } from "components/ui/Common/error/Error";
 import { Student } from "react-app-env";
 import { LongCard } from "components/ui/Common/card/LongCard/LongCard";
 import { useFilter } from "hooks/useFilter";
@@ -17,10 +14,12 @@ import { SquareButton } from "components/ui/Common/squarebutton/SquareButton";
 import { Sidebar } from "components/ui/Public/sidebar/Sidebar";
 import { CardsCta } from "components/ui/Public/cta/CardsCta/CardsCta";
 import { RouterLink } from "components/ui/Common/routerlink/RouterLink";
+import { Loader } from "components/ui/Common/loader/Loader";
+import { ContactButton } from "components/ui/Public/contactButton/ContactButton";
 
 export const Stagiaires = () => {
   const ref = React.useRef<HTMLDivElement>(null);
-  const { data, isError, isLoading } = useInfiniteQueryOnObserverPosition(
+  const { data, status, isFetching } = useInfiniteQueryOnObserverPosition(
     ref,
     "etudiant"
   );
@@ -47,45 +46,48 @@ export const Stagiaires = () => {
     <main>
       <Container fluid className="py-5 d-flex position-relative">
         <AnimateSharedLayout>
-          {isError && <Error />}
-          {filteredData && (
-            <Container>
-              {filteredData.map((etudiant: Student) => {
-                return (
-                  <Row layout className="mx-2" as={motion.div}>
-                    <Col>
-                      <LongCard
-                        title={`${etudiant.prenom} ${etudiant.nom}`}
-                        sub={etudiant.formations?.join(" ")}
-                        body={etudiant.competences?.join(" ")}
-                        footer={
-                          <>
-                            <Button
-                              onClick={() =>
-                                handleShow({
-                                  to: etudiant._id,
-                                  name: `${etudiant.prenom} ${etudiant.nom}`,
-                                })
-                              }
-                              variant="link"
-                              className="pl-0 mr-3"
-                            >
-                              Contacter
-                            </Button>
-                            <RouterLink to={`/stagiaire/${etudiant._id}`}>
-                              Détails
-                            </RouterLink>
-                          </>
-                        }
-                      />
-                    </Col>
-                  </Row>
-                );
-              })}
-            </Container>
-          )}
-          {isLoading && <Loading />}
-          <div ref={ref}></div>
+          <Loader
+            status={status}
+            component={
+              filteredData && (
+                <Container>
+                  {filteredData.map((etudiant: Student) => {
+                    return (
+                      <Row layout className="mx-2" as={motion.div}>
+                        <Col>
+                          <LongCard
+                            title={`${etudiant.prenom} ${etudiant.nom}`}
+                            sub={etudiant.formations?.join(" ")}
+                            body={etudiant.competences?.join(" ")}
+                            footer={
+                              <>
+                                <ContactButton
+                                  onClick={() =>
+                                    handleShow({
+                                      to: etudiant._id,
+                                      name: `${etudiant.prenom} ${etudiant.nom}`,
+                                    })
+                                  }
+                                  variant="link"
+                                  className="pl-0 mr-3"
+                                >
+                                  Contacter
+                                </ContactButton>
+                                <RouterLink to={`/stagiaire/${etudiant._id}`}>
+                                  Détails
+                                </RouterLink>
+                              </>
+                            }
+                          />
+                        </Col>
+                      </Row>
+                    );
+                  })}
+                </Container>
+              )
+            }
+          />
+          {!isFetching && <div ref={ref}></div>}
           <Sidebar title="Formations" resource={"formation" as string} />
         </AnimateSharedLayout>
       </Container>
