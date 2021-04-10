@@ -1,13 +1,11 @@
 /* eslint-disable */
 import React from "react";
 import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import { useQuery } from "react-query";
 import { v4 as uuidv4 } from "uuid";
-import { SmallCard } from "components/ui/Common/card/SmallCard/SmallCard";
 import { Formulaire } from "components/ui/Common/form/Form";
 import { SideMenu } from "components/ui/Common/sidemenu/SideMenu";
 import { newstage } from "forms/newStage/newStage";
@@ -21,6 +19,7 @@ import { getCompetences } from "./getCompetences";
 import { getFormations } from "./getFormations";
 import { formatDate } from "./formatDate";
 import { Loader } from "components/ui/Common/loader/Loader";
+import { Offres } from "./Offres";
 
 const queryKey = uuidv4();
 
@@ -134,25 +133,12 @@ export const MesOffres = () => {
           <Loader
             component={
               data &&
-              data.length > 0 &&
-              (data as OffreStage[]).map((offre) => (
-                <Col xs={12} md={6} lg={4} className="py-3">
-                  <SmallCard
-                    title={offre.titre}
-                    subtitle={offre.competences.join(" ")}
-                    body={offre.description}
-                    footer={
-                      <Button
-                        onClick={() => handleOpenSideMenuWithData(offre)}
-                        block
-                        variant="info"
-                      >
-                        Voir plus &amp; modifier
-                      </Button>
-                    }
-                  />
-                </Col>
-              ))
+              data.length > 0 && (
+                <Offres
+                  data={data as OffreStage[]}
+                  handleOpenSideMenuWithData={handleOpenSideMenuWithData}
+                />
+              )
             }
             status={status}
           />

@@ -17,6 +17,7 @@ const queryKey = uuidv4();
 export const EntrepriseProfile = () => {
   const [form, setForm] = React.useState(entrepriseProfile);
   const { currentUser } = useAuth();
+
   const query = queryFn(
     "get",
     `https://lit-shelf-44437.herokuapp.com/api/entreprise/${currentUser?.entiteId}`
@@ -56,7 +57,7 @@ export const EntrepriseProfile = () => {
             <Formulaire
               formInputs={form}
               onSubmit={handleSubmit}
-              initialValues={handleInitialValues()}
+              initialValues={data && handleInitialValues()}
               submitButtonValue="Modifier"
             />
           }
