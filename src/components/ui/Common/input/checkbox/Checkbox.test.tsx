@@ -2,7 +2,7 @@ import { renderWithRecoil } from "../../../../../../test-utils/renderWithRecoil"
 import { Checkbox } from "./Checkbox";
 
 test("render a checkbox", () => {
-  renderWithRecoil(
+  const checkbox = renderWithRecoil(
     <Checkbox
       id="checkbox"
       label="Another checkbox"
@@ -12,4 +12,8 @@ test("render a checkbox", () => {
       error=""
     />
   );
+
+  expect(checkbox.baseElement).toBeInTheDocument();
+  (checkbox.baseElement as HTMLInputElement).value = "true";
+  expect(checkbox.baseElement).toBeTruthy();
 });

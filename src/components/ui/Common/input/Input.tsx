@@ -33,33 +33,108 @@ export const Input = ({
   options,
   ...col
 }: InputProps) => {
-  let component: any = Form.Control;
-  if (type === "textarea") {
-    component = ExpandingTextArea;
-  } else if (type === "select") {
-    component = Select;
-  } else if (type === "checkbox") {
-    component = Checkbox;
-  } else if (type === "datepicker") {
-    component = DatepickerInput;
-  }
+  const componentToRender: { [key: string]: JSX.Element } = {
+    textarea: (
+      <>
+        <Form.Label>{label}</Form.Label>
+        <ExpandingTextArea
+          error={error}
+          handler={handler}
+          id={id}
+          onBlur={onBlur}
+          placeholder={placeholder}
+          touched={touched}
+          type={type}
+          value={value}
+        />
+      </>
+    ),
+    select: (
+      <>
+        <Form.Label>{label}</Form.Label>
+        <Select
+          error={error}
+          handler={handler}
+          id={id}
+          options={options}
+          touched={touched}
+          type={type}
+          value={value}
+        />
+      </>
+    ),
+    checkbox: (
+      <Checkbox
+        error={error}
+        handler={handler}
+        id={id}
+        touched={touched}
+        value={value}
+        label={label}
+      />
+    ),
+    datepicker: (
+      <>
+        <Form.Label>{label}</Form.Label>
+        <DatepickerInput
+          error={error}
+          handler={handler}
+          id={id}
+          onBlur={onBlur}
+          placeholder={placeholder}
+          touched={touched}
+          type={type}
+          value={value}
+        />
+      </>
+    ),
+    text: (
+      <>
+        <Form.Label>{label}</Form.Label>
+        <Form.Control
+          id={id}
+          type={type}
+          name={id}
+          onChange={handler}
+          value={value}
+          onBlur={onBlur}
+          isInvalid={touched && !!error}
+        />
+      </>
+    ),
+    email: (
+      <>
+        <Form.Label>{label}</Form.Label>
+        <Form.Control
+          id={id}
+          type={type}
+          name={id}
+          onChange={handler}
+          value={value}
+          onBlur={onBlur}
+          isInvalid={touched && !!error}
+        />
+      </>
+    ),
+    password: (
+      <>
+        <Form.Label>{label}</Form.Label>
+        <Form.Control
+          id={id}
+          type={type}
+          name={id}
+          onChange={handler}
+          value={value}
+          onBlur={onBlur}
+          isInvalid={touched && !!error}
+        />
+      </>
+    ),
+  };
 
   return (
     <>
-      {type !== "checkbox" && <Form.Label>{label}</Form.Label>}
-      <Form.Control
-        id={id}
-        type={type}
-        name={id}
-        onChange={handler}
-        value={value}
-        onBlur={onBlur}
-        isInvalid={touched && !!error}
-        as={component}
-        handler={handler}
-        options={options}
-        label={label}
-      />
+      {componentToRender[type]}
       <Form.Control.Feedback as="small" type="invalid">
         {touched && error}
       </Form.Control.Feedback>
