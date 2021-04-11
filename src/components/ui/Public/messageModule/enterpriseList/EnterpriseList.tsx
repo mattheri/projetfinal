@@ -88,7 +88,7 @@ export const EnterpriseList = ({ entityId, id }: EnterpriseListProps) => {
       {isLoading && <Loading />}
       {enterprises.length > 0 &&
         enterprises?.map((enterprise) => (
-          <Col lg={4} className="mb-4">
+          <Col key={enterprise._id} lg={4} className="mb-4">
             <SmallCard
               title={enterprise.nom}
               body={enterprise.description}

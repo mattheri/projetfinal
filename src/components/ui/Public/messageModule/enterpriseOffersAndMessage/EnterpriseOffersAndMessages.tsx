@@ -60,7 +60,7 @@ export const EnterpriseOffersAndMessages = () => {
       {offers.isLoading && <Loading />}
       {offers.data &&
         (offers.data as OffreStage[]).map((offer) => (
-          <Col lg={4} className="mb-4">
+          <Col key={offer._id} lg={4} className="mb-4">
             <SmallCard
               title={offer.titre}
               body={offer.description}

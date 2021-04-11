@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from "react";
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route, Outlet, useLocation } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { Public } from "pages/public/Public";
 import { Admin } from "pages/admin/Admin";
@@ -27,12 +27,22 @@ const queryClient = new QueryClient();
 
 function App() {
   const { currentUser, onSignIn } = useAuth();
+  const location = useLocation();
+  const [previousLocation, setPreviousLocation] = React.useState("");
 
   React.useEffect(() => {
     if (currentUser) {
       onSignIn(currentUser);
     }
   }, []);
+
+  React.useEffect(() => {
+    const locationMajorPath = location.pathname.split("/")[1] || "";
+    if (locationMajorPath !== previousLocation) {
+      setPreviousLocation(locationMajorPath);
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
 
   return (
     <QueryClientProvider client={queryClient}>

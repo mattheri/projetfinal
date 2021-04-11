@@ -73,7 +73,6 @@ export const Sidebar = ({ title, resource }: SidebarProps) => {
         <motion.aside
           key="sidebar"
           className="sidebar"
-          layout
           initial={{ x: 0, opacity: 1 }}
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: 500, opacity: 0 }}
