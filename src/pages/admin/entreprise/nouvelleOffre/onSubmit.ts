@@ -1,5 +1,6 @@
 /* eslint-disable */
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export const onSubmit = (userId: string | undefined, onSuccess: () => void) => {
   return async (values: { [key: string]: string }) => {
@@ -56,9 +57,11 @@ export const onSubmit = (userId: string | undefined, onSuccess: () => void) => {
       );
       if (response.status === 200) {
         onSuccess();
+        toast.success("Offre créée!");
       }
     } catch (err) {
       console.warn(err);
+      toast.error("Une erreur est survenue.");
     }
   };
 };

@@ -1,6 +1,7 @@
 /* eslint-disable */
 import axios from "axios";
 import { OffreStage } from "react-app-env";
+import { toast } from "react-hot-toast";
 
 export const handleSubmit = (
   selected: OffreStage | undefined,
@@ -57,12 +58,13 @@ export const handleSubmit = (
         `https://lit-shelf-44437.herokuapp.com/api/stage/${selected?._id}`,
         body
       );
-      console.log(response);
       if (response.status === 200) {
         handleOnSuccess();
+        toast.success("Modification réussie!");
       }
     } catch (err) {
       console.warn(err);
+      toast.error("Une erreur est survenue.");
     }
   };
 };

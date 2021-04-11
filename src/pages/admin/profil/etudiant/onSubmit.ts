@@ -1,5 +1,6 @@
 /* eslint-disable */
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export const onSubmit = (
   entityId: string | undefined,
@@ -43,16 +44,21 @@ export const onSubmit = (
         courriel: values.courriel,
       };
 
-      await axios.put(
+      const studentResponse = await axios.put(
         `https://lit-shelf-44437.herokuapp.com/api/etudiant/${entityId}`,
         student
       );
-      await axios.put(
+      const userResponse = await axios.put(
         `https://lit-shelf-44437.herokuapp.com/api/utilisateur/${id}`,
         user
       );
+
+      if (studentResponse.status === 200 && userResponse.status === 200) {
+        toast.success("Modification réussie!");
+      }
     } catch (err) {
       console.warn(err);
+      toast.error("Une erreur est survenue.");
     }
   };
 };

@@ -21,6 +21,7 @@ import { EntrepriseProfile } from "pages/admin/profil/entreprise/EntrepriseProfi
 import { EtudiantProfile } from "pages/admin/profil/etudiant/EtudiantProfile";
 import { Stage } from "pages/public/stage/Stage";
 import { Stagiaire } from "pages/public/stagiaire/Stagiaire";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +71,7 @@ function App() {
       </Routes>
       <Outlet />
       <ReactQueryDevtools />
+      <Toaster position="bottom-center" />
     </QueryClientProvider>
   );
 }

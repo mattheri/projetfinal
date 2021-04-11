@@ -1,5 +1,6 @@
 /* eslint-disable */
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export const onSubmit = (
   onSuccess: () => void,
@@ -37,9 +38,11 @@ export const onSubmit = (
 
       if (response.status === 200) {
         onSuccess();
+        toast.success("Modification effectuée!");
       }
     } catch (err) {
       console.warn(err);
+      toast.error("Une erreur est survenue.");
     }
   };
 };
