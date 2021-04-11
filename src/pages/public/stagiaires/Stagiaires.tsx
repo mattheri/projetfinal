@@ -103,7 +103,7 @@ export const Stagiaires = () => {
             "Morbi sodales risus quis orci hendrerit sempe",
           ]}
         />
-        <SquareButton to="/entreprise/stages/new">
+        <SquareButton to="/admin">
           Publier une offre de stage maintenant
         </SquareButton>
       </BannerCTA>
