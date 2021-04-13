@@ -1,9 +1,9 @@
 import React from "react";
-import { render } from "@testing-library/react";
 import { LongCard } from "./LongCard";
+import { renderWithRecoil } from "../../../../../../test-utils/renderWithRecoil";
 
 test("Renders a long card", () => {
-  render(
+  const card = renderWithRecoil(
     <LongCard
       title="Test"
       subtitle="test"
@@ -12,4 +12,6 @@ test("Renders a long card", () => {
       body="bodytest"
     />
   );
+
+  expect(card.baseElement).toBeInTheDocument();
 });

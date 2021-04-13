@@ -2,7 +2,7 @@ import { renderWithRecoil } from "../../../../../../test-utils/renderWithRecoil"
 import { DatepickerInput } from "./DatepickerInput";
 
 test("render a datepicker input", () => {
-  renderWithRecoil(
+  const datepicker = renderWithRecoil(
     <DatepickerInput
       error={""}
       handler={() => console.log("handler")}
@@ -14,4 +14,6 @@ test("render a datepicker input", () => {
       value=""
     />
   );
+
+  expect(datepicker.baseElement).toBeInTheDocument();
 });
